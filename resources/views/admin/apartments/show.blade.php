@@ -56,7 +56,7 @@ $routeName = Route::currentRouteName();
 
             <h1 class="my-3">{{$apartment->name}}</h1>
 
-            <div>
+            <div class="pt-4">
                 <h3>Photo</h3>
 
                 <img src="" alt="">
@@ -95,23 +95,50 @@ $routeName = Route::currentRouteName();
                         <div>{{$apartment->address}}</div>
                     </li>
                 </ul>
+
+                <div class="bottom_listing py-5">
+
+                    <h3>Property and Rooms</h3>
+    
+                    <ul>
+                        <li>
+                            <div class="listing_title"><strong>Rooms</strong></div>
+                            <div>{{$apartment->rooms_number}}</div>
+                        </li>
+                        <li>
+                            <div class="listing_title"><strong>Square meters</strong></div>
+                            <div>{{$apartment->sqm}}</div>
+                        </li>
+                        <li>
+                            <div class="listing_title"><strong>Beds</strong></div>
+                            <div>{{$apartment->beds_number}}</div>
+                        </li>
+                        <li>
+                            <div class="listing_title"><strong>Bathrooms</strong></div>
+                            <div>{{$apartment->bathrooms_number}}</div>
+                        </li>
+                        
+                    </ul>
+    
+                </div>
                
                 
             </div>
                                 
             
             
+            <div><a href="">Visualizza messaggi appartamento</a></div>
+    
+            <button>modifica</button>
+            <button>elimina</button>
 
-            <div class="py-5">
-
-                <h3>Property and Rooms</h3>
-
-            </div>
+            
             
             
         </div>
 
-
     </main>
+
+    
     
 @endsection

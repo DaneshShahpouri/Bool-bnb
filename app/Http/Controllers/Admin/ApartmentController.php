@@ -27,7 +27,9 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        $services = Service::all();
+        
+        return view('admin.apartments.create', compact('services'));
     }
 
     /**
@@ -38,7 +40,11 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $formData = $request->all();
+
+        // return redirect('admin.apartments.show')
+
+        
     }
 
     /**
@@ -87,5 +93,13 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         //
+    }
+
+    private function validation($request){
+
+        $formData = $request->all();
+
+
+
     }
 }

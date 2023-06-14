@@ -6,7 +6,7 @@
 
 
 
-<main id="apartments_index">
+<main id="apartment_index">
 
     <div class="container">
        
@@ -52,6 +52,8 @@
               
             </tbody>
           </table>
+
+          <a href="{{route ('admin.apartments.create')}}">Aggiungi nuovo appartamento</a>
 
     </div>
 
