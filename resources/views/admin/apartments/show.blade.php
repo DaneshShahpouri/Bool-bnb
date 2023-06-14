@@ -26,7 +26,7 @@ $routeName = Route::currentRouteName();
                 </div>
             </div>
 
-            {{-- <div class="card {{ str_contains(Route::currentRouteName(), 'apartments.') ? 'border-warning' : ''}}"> --}}
+          
             <div class="card {{ routeNameContains('apartments.') ? 'border-danger' : ''}}">
                 <div class="card-header {{ routeNameContains('apartments.') ? 'text-danger' : ''}}">
                     Apartments
@@ -38,16 +38,6 @@ $routeName = Route::currentRouteName();
 
             </div>
 
-            {{-- <div class="card {{ routeNameContains('types.') ? 'border-warning' : ''}}">
-                <div class="card-header {{ routeNameContains('types.') ? 'text-warning' : ''}}">
-                    Types
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="{{route('admin.types.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('types.index') ? 'active' : ''}}">Index</a>
-                    <a href="{{route('admin.types.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('types.create') ? 'active' : ''}}">Add Type</a>
-
-                </div>
-            </div> --}}
 
         </aside>
       
@@ -57,9 +47,9 @@ $routeName = Route::currentRouteName();
             <h1 class="my-3">{{$apartment->name}}</h1>
 
             <div class="pt-4">
-                <h3>Photo</h3>
+                <h3 class="mb-4">Photo</h3>
 
-                <img src="" alt="">
+                <div class="img_container"><img src="{{asset('storage/' . $apartment->cover_image)}}" alt="Photo"></div>
             </div>
 
             <div class="listing py-5">
@@ -127,10 +117,18 @@ $routeName = Route::currentRouteName();
                                 
             
             
-            <div><a href="">Visualizza messaggi appartamento</a></div>
+            <div class="mb-4"><a href="">Visualizza messaggi appartamento</a></div>
     
-            <button>modifica</button>
-            <button>elimina</button>
+            <div class="d-flex gap-3 py-3">
+
+                <button class="btn btn-primary "><a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="text-white text-decoration-none">Edit Apartment</a></button>
+                <form action="{{route('admin.apartments.destroy', $apartment->slug)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                
+            </div>
 
             
             

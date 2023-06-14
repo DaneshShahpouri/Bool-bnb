@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ApartmentController extends Controller
 {
@@ -40,9 +43,50 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        // $formData = $request->all();
+         $formData = $request->all();
 
-        // return redirect('admin.apartments.show')
+         
+
+        $newApartment = new Apartment();
+
+        $newApartment->user_id = Auth::id();
+        $newApartment->name = $formData['name'];
+        $newApartment->description = $formData['description'];
+        $newApartment->rooms_number = $formData['rooms_number'];
+        $newApartment->beds_number = $formData['beds_number'];
+        $newApartment->bathrooms_number = $formData['bathrooms_number'];
+        $newApartment->sqm = $formData['sqm'];
+        $newApartment->address = $formData['address'];
+        $newApartment->latitude = $formData['latitude'];
+        $newApartment->longitude = $formData['longitude'];
+        $newApartment->isVisible = intval($formData['isVisible']);
+        $newApartment->slug = Str::slug($formData['name'] , '-');
+
+        if ($request->hasFile('cover_image')){
+
+            $path = Storage::put('apartment_images' , $request->cover_image);
+
+            $formData['cover_image'] = $path;
+
+            $newApartment->cover_image = $formData['cover_image'];
+
+            
+        }
+
+        
+
+
+        $newApartment->save();
+
+        if (array_key_exists('services', $formData)) {
+
+            $newApartment->services()->attach($formData['services']);
+        }
+
+
+    return redirect()->route('admin.apartments.show', $newApartment);
+
+        
 
         
     }
@@ -69,7 +113,11 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        
+        $services = Service::all();
+
+        return view('admin.apartments.edit', compact( 'services', 'apartment'));
+
     }
 
     /**
@@ -81,7 +129,42 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        $formData = $request->all();
+
+        $apartment->slug = Str::slug($formData['name'], '-');
+
+        if($request->hasFile('cover_image')) {
+
+            if($apartment->cover_image){
+
+                Storage::delete($apartment->cover_image);
+            }
+
+            $path = Storage::put('apartment_images', $request->cover_image);
+
+            $formData['cover_image'] = $path;
+
+
+        }
+
+        $apartment->update($formData);
+
+        $apartment->save();
+
+
+        if(array_key_exists('services', $formData)){
+
+        $apartment->services()->sync($formData['services']);
+
+        } else {
+
+            $apartment->services()->detach();
+        }
+        
+        
+
+        return redirect()->route('admin.apartments.show', $apartment);
+
     }
 
     /**
@@ -92,7 +175,14 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        if($apartment->cover_image){
+
+            Storage::delete($apartment->cover_image);
+        }
+
+        $apartment->delete();
+
+        return redirect()->route('admin.apartments.index');
     }
 
     private function validation($request){

@@ -2,20 +2,19 @@
 
 @section('content')
 
-
-
-<main id="apartment_create">
+<main class="apartment_edit">
 
     <div class="container">
 
-        <h1 class="my-4">Add new Aparment</h1>
-        
-        <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data">
+        <h1 class="my-4">Edit Apartment : <em>{{$apartment->name}}</em></h1>
+
+        <form action="{{route ('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <div class="mb-3">
                 <label for="name" class="mb-2">Listing Title</label>
-                <input class="form-control my-label @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Enter apartment name">
+                <input class="form-control my-label @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Enter apartment name" value="{{old('name') ?? $apartment->name}}">
                 @error('name')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -25,7 +24,7 @@
 
             <div class="mb-3">
                 <label for="description" class="mb-2">Listing Description</label>
-                <textarea class="form-control my-label @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10" placeholder="Enter apartment description"></textarea>
+                <textarea class="form-control my-label @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10" placeholder="Enter apartment description">{{old('description') ?? $apartment->description}}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -46,7 +45,7 @@
 
               <div class="mb-3">
                 <label for="isVisible">Visibility :</label>
-                <select name="isVisible" id="isVisible" class="w-20">
+                <select name="isVisible" id="isVisible" class="w-20" @checked($apartment->services->contains)>
                     <option value=1>Show Listing</option>
                     <option value=0>Hide Listing</option>
                 </select>
@@ -62,7 +61,7 @@
                     
                     
                         <div class="form-check">
-                            <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}">
+                            <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
                         </div>
                    
@@ -73,7 +72,7 @@
 
             <div class="mb-3">
                 <label for="address" class="mb-2">Address</label>
-                <input class="form-control my-label @error('address') is-invalid @enderror" type="text" name="address" id="address" placeholder="Enter apartment address">
+                <input class="form-control my-label @error('address') is-invalid @enderror" type="text" name="address" id="address" placeholder="Enter apartment address" value="{{old('address') ?? $apartment->address}}">
                 @error('address')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -83,7 +82,7 @@
 
             <div class="mb-3">
                 <label for="latitude" class="mb-2">Latitude</label>
-                <input class="form-control my-label @error('latitude') is-invalid @enderror" type="number" name="latitude" id="latitude" placeholder="Enter apartment latitude">
+                <input class="form-control my-label @error('latitude') is-invalid @enderror" type="number" name="latitude" id="latitude" placeholder="Enter apartment latitude" value="{{old('latitude') ?? $apartment->latitude}}">
                 @error('latitude')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -93,7 +92,7 @@
 
             <div class="mb-3">
                 <label for="longitude" class="mb-2">Longitude</label>
-                <input class="form-control my-label @error('longitude') is-invalid @enderror" type="number" name="longitude" id="longitude" placeholder="Enter apartment longitude">
+                <input class="form-control my-label @error('longitude') is-invalid @enderror" type="number" name="longitude" id="longitude" placeholder="Enter apartment longitude" value="{{old('longitude') ?? $apartment->longitude}}">
                 @error('longitude')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -103,7 +102,7 @@
 
             <div class="mb-3">
                 <label for="rooms_number" class="mb-2">Rooms</label>
-                <input class="form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms">
+                <input class="form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms" value="{{old('rooms_number') ?? $apartment->rooms_number}}">
                 @error('rooms_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -113,7 +112,7 @@
 
             <div class="mb-3">
                 <label for="beds_number" class="mb-2">Beds</label>
-                <input class="form-control my-label @error('beds_number') is-invalid @enderror" type="number" name="beds_number" id="beds_number" placeholder="Enter total beds">
+                <input class="form-control my-label @error('beds_number') is-invalid @enderror" type="number" name="beds_number" id="beds_number" placeholder="Enter total beds" value="{{old('beds_number') ?? $apartment->beds_number}}">
                 @error('beds_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -123,7 +122,7 @@
 
             <div class="mb-1">
                 <label for="bathrooms_number" class="mb-2">Bathrooms</label>
-                <input class="form-control my-label @error('bathrooms_number') is-invalid @enderror" type="number" name="bathrooms_number" id="bathrooms_number" placeholder="Enter total bathrooms">
+                <input class="form-control my-label @error('bathrooms_number') is-invalid @enderror" type="number" name="bathrooms_number" id="bathrooms_number" placeholder="Enter total bathrooms" value="{{old('bathrooms_number') ?? $apartment->bathrooms_number}}">
                 @error('bathrooms_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -133,7 +132,7 @@
 
             <div class="mb-3">
                 <label for="sqm" class="mb-2">Area (sqm) </label>
-                <input class="form-control my-label @error('sqm') is-invalid @enderror" type="number" name="sqm" id="sqm" placeholder="Enter apartment square meters">
+                <input class="form-control my-label @error('sqm') is-invalid @enderror" type="number" name="sqm" id="sqm" placeholder="Enter apartment square meters" value="{{old('sqm') ?? $apartment->sqm}}">
                 @error('sqm')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -145,14 +144,12 @@
 
 
     
-            <button type="submit" class="btn btn-primary my-2">Add apartment</button>
+            <button type="submit" class="btn btn-primary my-2 text-light">Edit apartment</button>
 
         </form>
 
     </div>
 
 </main>
-
-
     
 @endsection
