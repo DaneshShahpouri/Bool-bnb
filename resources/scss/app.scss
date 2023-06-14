@@ -1,1 +1,41 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+ul{
+    padding: 0;
+}
+
+#apartment_show{
+
+    display: flex;
+
+    aside {
+        display: flex;
+        flex-flow: column;
+        gap: 2em;
+
+        height: 100%;
+        min-width: 200px;
+        padding: 16px;
+        
+        .card{
+            border: 1px solid red;
+        }
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
+    
+    .listing{
+
+
+
+        li{
+
+            padding: 10px;
+            list-style-type: none;
+            
+        }
+    }
+}

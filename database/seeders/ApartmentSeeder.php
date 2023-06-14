@@ -18,7 +18,7 @@ class ApartmentSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $apartment = new Apartment();
 
             $apartment->user_id = $faker->numberBetween(1,3);
@@ -28,11 +28,11 @@ class ApartmentSeeder extends Seeder
             $apartment->beds_number = $faker->numberBetween(1, 8);
             $apartment->bathrooms_number = $faker->numberBetween(1, 4);
             $apartment->sqm = $faker->numberBetween(50, 400);
-            $apartment->address = $faker->text(40);
+            $apartment->address = $faker->address();
             $apartment->latitude = $faker->latitude(-90, 90);
             $apartment->longitude = $faker->longitude(-180, 180);
             $apartment->cover_image = $faker->text(30);
-            $apartment->isVisible = 1;
+            $apartment->isVisible = $faker->numberBetween(0,1);
             $apartment->slug = Str::slug($apartment->name, '-');
 
             $apartment->save();

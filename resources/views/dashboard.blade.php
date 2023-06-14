@@ -19,6 +19,7 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <a href="{{route ('admin.apartments.index')}}">visualizza index</a>
             </div>
         </div>
     </div>
