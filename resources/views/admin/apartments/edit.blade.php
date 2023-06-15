@@ -58,8 +58,6 @@
 
                     @foreach ($services as $service)
                       
-                    
-                    
                         <div class="form-check">
                             <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
@@ -74,26 +72,6 @@
                 <label for="address" class="mb-2">Address</label>
                 <input class="form-control my-label @error('address') is-invalid @enderror" type="text" name="address" id="address" placeholder="Enter apartment address" value="{{old('address') ?? $apartment->address}}">
                 @error('address')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="latitude" class="mb-2">Latitude</label>
-                <input class="form-control my-label @error('latitude') is-invalid @enderror" type="number" name="latitude" id="latitude" placeholder="Enter apartment latitude" value="{{old('latitude') ?? $apartment->latitude}}">
-                @error('latitude')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="longitude" class="mb-2">Longitude</label>
-                <input class="form-control my-label @error('longitude') is-invalid @enderror" type="number" name="longitude" id="longitude" placeholder="Enter apartment longitude" value="{{old('longitude') ?? $apartment->longitude}}">
-                @error('longitude')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -139,17 +117,11 @@
                     </div>
                 @enderror
             </div>
-
-            
-
-
     
             <button type="submit" class="btn btn-primary my-2 text-light">Edit apartment</button>
 
         </form>
-
     </div>
-
 </main>
     
 @endsection

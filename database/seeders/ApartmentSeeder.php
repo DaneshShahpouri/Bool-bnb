@@ -29,8 +29,6 @@ class ApartmentSeeder extends Seeder
             $apartment->bathrooms_number = $faker->numberBetween(1, 4);
             $apartment->sqm = $faker->numberBetween(50, 400);
             $apartment->address = $faker->address();
-            $apartment->latitude = $faker->latitude(-90, 90);
-            $apartment->longitude = $faker->longitude(-180, 180);
             $apartment->cover_image = $faker->text(30);
             $apartment->isVisible = $faker->numberBetween(0,1);
             $apartment->slug = Str::slug($apartment->name, '-');

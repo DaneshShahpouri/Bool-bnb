@@ -82,26 +82,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="latitude" class="mb-2">Latitude</label>
-                <input class="form-control my-label @error('latitude') is-invalid @enderror" type="number" name="latitude" id="latitude" placeholder="Enter apartment latitude">
-                @error('latitude')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="longitude" class="mb-2">Longitude</label>
-                <input class="form-control my-label @error('longitude') is-invalid @enderror" type="number" name="longitude" id="longitude" placeholder="Enter apartment longitude">
-                @error('longitude')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
                 <label for="rooms_number" class="mb-2">Rooms</label>
                 <input class="form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms">
                 @error('rooms_number')

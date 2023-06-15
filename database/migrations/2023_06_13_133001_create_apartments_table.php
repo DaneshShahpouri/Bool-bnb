@@ -19,16 +19,16 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description');
-            $table->tinyInteger('rooms_number')->nullable();
-            $table->tinyInteger('beds_number')->nullable();
-            $table->tinyInteger('bathrooms_number')->nullable();
-            $table->smallInteger('sqm')->nullable();
+            $table->tinyInteger('rooms_number');
+            $table->tinyInteger('beds_number');
+            $table->tinyInteger('bathrooms_number');
+            $table->smallInteger('sqm');
             $table->string('address');
-            $table->decimal('latitude', 9, 6);
-            $table->decimal('longitude', 10, 6);
-            $table->string('cover_image')->nullable();
+            $table->decimal('latitude', 9, 6)->nullable();
+            $table->decimal('longitude', 10, 6)->nullable();
+            $table->string('cover_image');
             $table->boolean('isVisible');
-            $table->string('slug', 120)->unique();
+            $table->string('slug')->unique();
 
             $table->timestamps();
 

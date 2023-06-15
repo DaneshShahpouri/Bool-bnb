@@ -20,7 +20,10 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartments = Apartment::all();
-        return view ('admin.apartments.index' , compact('apartments'));
+
+        $error_message = '';
+
+        return view ('admin.apartments.index' , compact('apartments', 'error_message'));
     }
 
     /**
@@ -43,10 +46,9 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-         $formData = $request->all();
-
-         
-
+            
+        $formData = $request->all();
+        
         $newApartment = new Apartment();
 
         $newApartment->user_id = Auth::id();
@@ -68,27 +70,15 @@ class ApartmentController extends Controller
 
             $formData['cover_image'] = $path;
 
-            $newApartment->cover_image = $formData['cover_image'];
-
-            
+            $newApartment->cover_image = $formData['cover_image']; 
         }
-
         
-
-
-        $newApartment->save();
-
         if (array_key_exists('services', $formData)) {
-
+    
             $newApartment->services()->attach($formData['services']);
         }
 
-
-    return redirect()->route('admin.apartments.show', $newApartment);
-
-        
-
-        
+        return redirect()->route('admin.apartments.show', $newApartment);
     }
 
     /**
@@ -129,41 +119,46 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        $formData = $request->all();
 
-        $apartment->slug = Str::slug($formData['name'], '-');
+        if($apartment->user_id == Auth::id()){
 
-        if($request->hasFile('cover_image')) {
-
-            if($apartment->cover_image){
-
-                Storage::delete($apartment->cover_image);
+            $formData = $request->all();
+    
+            $apartment->slug = Str::slug($formData['name'], '-');
+    
+            if($request->hasFile('cover_image')) {
+    
+                if($apartment->cover_image){
+    
+                    Storage::delete($apartment->cover_image);
+                }
+    
+                $path = Storage::put('apartment_images', $request->cover_image);
+    
+                $formData['cover_image'] = $path;
             }
-
-            $path = Storage::put('apartment_images', $request->cover_image);
-
-            $formData['cover_image'] = $path;
-
-
-        }
-
-        $apartment->update($formData);
-
-        $apartment->save();
-
-
-        if(array_key_exists('services', $formData)){
-
-        $apartment->services()->sync($formData['services']);
-
+    
+            $apartment->update($formData);
+    
+            $apartment->save();
+    
+            if(array_key_exists('services', $formData)){
+    
+            $apartment->services()->sync($formData['services']);
+    
+            } else {
+    
+                $apartment->services()->detach();
+            }
+            
+            return redirect()->route('admin.apartments.show', $apartment );
+    
         } else {
 
-            $apartment->services()->detach();
+            $error_message = 'Non puoi entrare';
+    
+            return redirect()->route('admin.apartments.index', compact('error_message'));
         }
-        
-        
-
-        return redirect()->route('admin.apartments.show', $apartment);
 
     }
 

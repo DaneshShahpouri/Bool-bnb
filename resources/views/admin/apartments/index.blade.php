@@ -2,13 +2,15 @@
 
 @section('content')
 
-
-
-
-
 <main id="apartment_index">
 
     <div class="container">
+
+      @if($error_message != '')
+
+      <div>Non puoi pd</div>
+
+      @endif
        
         <table class="table my-3">
             <thead>
@@ -26,37 +28,32 @@
             </thead>
             <tbody>
               
-                  
-             
                 @foreach ($apartments as $apartment)
 
                 @if ($apartment->user_id == Auth::id())
 
                     <tr>
-                        <td>{{$apartment->name}}</td>
-                        {{-- <td><i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i> {{$apartment->isVisible == 1 ? 'Listed' : 'Unlisted'}} </td> --}}
-                        <td><div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div></td>
+                        <td>{{strlen($apartment->name) > 40 ? substr($apartment->name, 0, 40) . '...' : $apartment->name}}</td>
+                        <td class="d-flex align-items-center">
+                          <div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div>
+                          <div class="px-2">{{$apartment->isVisible == 1 ? ' Listed' : ' Unlisted'}}</div>
+                        </td>
                         <td>{{$apartment->rooms_number}}</td>
                         <td>{{$apartment->beds_number}}</td>
                         <td>{{$apartment->bathrooms_number}}</td>
-                        <td>{{$apartment->address}}</td>
+                        <td>{{strlen($apartment->address) > 40 ? substr($apartment->address, 0, 40) . '...' : $apartment->address}}</td>
                         <td><a href="{{route ('admin.apartments.show' , $apartment->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a></td>
                     </tr>
-                
-                    
+        
                 @endif
-                    
+
                 @endforeach
 
-              
-              
             </tbody>
           </table>
 
           <a href="{{route ('admin.apartments.create')}}">Aggiungi nuovo appartamento</a>
-
     </div>
-
 </main>
     
 @endsection
