@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <main id="apartment_create">
 
     <div class="container">

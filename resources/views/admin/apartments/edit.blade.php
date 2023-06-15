@@ -4,6 +4,8 @@
 
 <main class="apartment_edit">
 
+    @if($apartment->user_id == Auth::id())
+
     <div class="container">
 
         <h1 class="my-4">Edit Apartment : <em>{{$apartment->name}}</em></h1>
@@ -122,6 +124,16 @@
 
         </form>
     </div>
+
+    @else
+    <div class="container m-5 d-flex flex-column justify-content-center align-items-center">
+        <div class="alert alert-danger w-100" role="alert">
+            Sorry, you don't have access to this item.
+        </div>
+
+        <a class="btn btn-primary" href="{{route('admin.apartments.index')}}">Go back your apartments</a>
+    </div>
+    @endif
 </main>
     
 @endsection
