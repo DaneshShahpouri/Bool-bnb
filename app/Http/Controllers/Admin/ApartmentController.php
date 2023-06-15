@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ApartmentController extends Controller
@@ -49,6 +50,8 @@ class ApartmentController extends Controller
     {
             
         $formData = $request->all();
+
+        $this->validation($request);
         
         $newApartment = new Apartment();
 
@@ -148,41 +151,66 @@ class ApartmentController extends Controller
         if($apartment->user_id == Auth::id()){
 
             $formData = $request->all();
+
+            $this->validation($request);
     
             $apartment->slug = Str::slug($formData['name'], '-');
-    
-            if($request->hasFile('cover_image')) {
-    
-                if($apartment->cover_image){
-    
-                    Storage::delete($apartment->cover_image);
-                }
-    
-                $path = Storage::put('apartment_images', $request->cover_image);
-    
-                $formData['cover_image'] = $path;
-            }
-    
-            $apartment->update($formData);
-    
-            $apartment->save();
-    
-            if(array_key_exists('services', $formData)){
-    
-            $apartment->services()->sync($formData['services']);
-    
+
+            $client = new Client();
+            $res = $client->get('https://api.tomtom.com/search/2/geocode/' . urlencode($formData['address']) . '.json', [
+            'query' => [
+                'key' => 'qjmqFCtzdoYUrau6McZvVU6fLcLPEuAA',
+            ],
+
+            'verify' => false,
+        ]);
+
+        if ($res->getStatusCode() == 200) {
+            $data = json_decode($res->getBody(), true);
+            if (count($data['results']) > 0) {
+                $position = $data['results'][0]['position'];
+                $apartment->latitude = $position['lat'];
+                $apartment->longitude = $position['lon'];
             } else {
-    
-                $apartment->services()->detach();
+                return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
             }
-            
-            return redirect()->route('admin.apartments.show', $apartment );
-    
         } else {
-    
-            return redirect()->route('admin.apartments.index');
+
+            return back()->withErrors(['address' => 'Error fetching coordinates.']);
         }
+        
+        if($request->hasFile('cover_image')) {
+
+            if($apartment->cover_image){
+
+                Storage::delete($apartment->cover_image);
+            }
+
+            $path = Storage::put('apartment_images', $request->cover_image);
+
+            $formData['cover_image'] = $path;
+        }
+        
+        $apartment->update($formData);
+
+        $apartment->save();
+
+        if(array_key_exists('services', $formData)){
+
+        $apartment->services()->sync($formData['services']);
+
+        } else {
+
+            $apartment->services()->detach();
+        }
+        
+        return redirect()->route('admin.apartments.show', $apartment );
+
+    } else {
+
+        return redirect()->route('admin.apartments.index');
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -206,7 +234,62 @@ class ApartmentController extends Controller
 
         $formData = $request->all();
 
+        $validator = Validator::make($formData, [
 
+            'name' => 'required|max:255|min:5',
+            'description' => 'required|max:800|min:10',
+            'cover_image' => 'required|image|max:4096',
+            'isVisible' => 'required',
+            'address' => 'required|max:100|min:7',
+            'rooms_number' => 'required|numeric|min:1|max:30',
+            'beds_number' => 'required|numeric|min:1|max:60',
+            'bathrooms_number' => 'required|numeric|min:1|max:20',
+            'sqm' => 'required|numeric|min:10|max:5000',
+            'services' => 'required|exists:services,id' 
+        ], [
+            'name.required' => 'Please enter an apartment name',
+            'name.max' => 'Name must be shorter than :max characters',
+            'name.min' => 'Name must be longer than :min characters',
 
+            'description.required' => 'Description required',
+            'description.max' => 'Description must be shorter than :max characters',
+            'description.min' => 'Description must be longer than :min characters',
+
+            'cover_image.required' => "Please upload an image",
+            'cover_image.max' => "The image size should not exceed :max kb",
+            'cover_image.image' => "Please upload an image file",
+
+            'isVisible.required' => 'Visibility field required',
+
+            'address.required' => 'Please enter an address',
+            'address.min' => 'Address must be longer than :min characters',
+            'address.max' => 'Address must be shorter than :max characters',
+
+            'rooms_number.required' => 'Please enter the number of rooms',
+            'rooms_number.numeric' => 'This field must contain a numeric value',
+            'rooms_number.min' => 'The number of rooms must be at least :min',
+            'rooms_number.max' => 'The number of rooms must not exceed :max',
+
+            'beds_number.required' => 'Please enter the number of beds',
+            'beds_number.numeric' => 'This field must contain a numeric value',
+            'beds_number.min' => 'The number of beds must be at least :min',
+            'beds_number.max' => 'The number of beds must not exceed :max',
+
+            'bathrooms_number.required' => 'Please enter the number of bathrooms',
+            'bathrooms_number.numeric' => 'This field must contain a numeric value',
+            'bathrooms_number.min' => 'The number of bathrooms must be at least :min',
+            'bathrooms_number.max' => 'The number of bathrooms must not exceed :max',
+
+            'sqm.required' => 'Please enter the apartment size in square meters',
+            'sqm.numeric' => 'This field must contain a numeric value',
+            'sqm.min' => 'The square meters value must be at least :min',
+            'sqm.max' => 'The square meters value must not exceed :max',
+
+            'services.exists' => 'Choose among one of the available amenities',
+            'services.required' => 'Please select at least one amenity',
+            
+        ])->validate(); 
+        
+        return $validator;
     }
 }

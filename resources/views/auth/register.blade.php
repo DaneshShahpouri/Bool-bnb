@@ -92,6 +92,7 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <span id="error-password-message"></span>
                             </div>
                         </div>
 
@@ -109,19 +110,6 @@
     </div>
 </div>
 
-{{-- <script>
-    let inputPassword = document.getElementById('password');
-    let inputPasswordConfirm = document.getElementById('password-confirm');
-    let button = document.getElementById('button');
-
-    button.addEventListener('click', () => {
-
-        if(inputPassword.value != inputPasswordConfirm.value){
-
-            inputPassword.
-        } 
-    })
-</script> --}}
 @endsection
 
 
