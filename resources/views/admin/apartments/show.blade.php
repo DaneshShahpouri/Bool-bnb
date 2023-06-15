@@ -106,7 +106,7 @@ $routeName = Route::currentRouteName();
             </div>
                                 
             
-            <div class="mb-4"><a href="">Visualizza messaggi appartamento</a></div>
+            {{-- <div class="mb-4"><a href="">Visualizza messaggi appartamento</a></div> --}}
     
             <div class="d-flex gap-3 py-3">
 
