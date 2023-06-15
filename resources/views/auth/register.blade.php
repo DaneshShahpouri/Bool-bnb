@@ -97,7 +97,7 @@
 
                         <div class="mb-4 row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="button" type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -108,4 +108,20 @@
         </div>
     </div>
 </div>
+
+{{-- <script>
+    let inputPassword = document.getElementById('password');
+    let inputPasswordConfirm = document.getElementById('password-confirm');
+    let button = document.getElementById('button');
+
+    button.addEventListener('click', () => {
+
+        if(inputPassword.value != inputPasswordConfirm.value){
+
+            inputPassword.
+        } 
+    })
+</script> --}}
 @endsection
+
+

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Service;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -59,10 +60,31 @@ class ApartmentController extends Controller
         $newApartment->bathrooms_number = $formData['bathrooms_number'];
         $newApartment->sqm = $formData['sqm'];
         $newApartment->address = $formData['address'];
-        $newApartment->latitude = $formData['latitude'];
-        $newApartment->longitude = $formData['longitude'];
         $newApartment->isVisible = intval($formData['isVisible']);
         $newApartment->slug = Str::slug($formData['name'] , '-');
+
+        $client = new Client();
+        $res = $client->get('https://api.tomtom.com/search/2/geocode/' . urlencode($formData['address']) . '.json', [
+            'query' => [
+                'key' => 'qjmqFCtzdoYUrau6McZvVU6fLcLPEuAA',
+            ],
+
+            'verify' => false,
+        ]);
+
+        if ($res->getStatusCode() == 200) {
+            $data = json_decode($res->getBody(), true);
+            if (count($data['results']) > 0) {
+                $position = $data['results'][0]['position'];
+                $newApartment->latitude = $position['lat'];
+                $newApartment->longitude = $position['lon'];
+            } else {
+                return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
+            }
+        } else {
+
+            return back()->withErrors(['address' => 'Error fetching coordinates.']);
+        }
 
         if ($request->hasFile('cover_image')){
 
@@ -73,10 +95,13 @@ class ApartmentController extends Controller
             $newApartment->cover_image = $formData['cover_image']; 
         }
         
+        $newApartment->save();
+        
         if (array_key_exists('services', $formData)) {
     
             $newApartment->services()->attach($formData['services']);
         }
+
 
         return redirect()->route('admin.apartments.show', $newApartment);
     }
@@ -154,12 +179,9 @@ class ApartmentController extends Controller
             return redirect()->route('admin.apartments.show', $apartment );
     
         } else {
-
-            $error_message = 'Non puoi entrare';
     
-            return redirect()->route('admin.apartments.index', compact('error_message'));
+            return redirect()->route('admin.apartments.index');
         }
-
     }
 
     /**

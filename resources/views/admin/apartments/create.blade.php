@@ -58,9 +58,7 @@
                 <div class="d-flex">
 
                     @foreach ($services as $service)
-                      
-                    
-                    
+    
                         <div class="form-check">
                             <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}">
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
@@ -68,12 +66,11 @@
                    
                     @endforeach
                 </div>
-            
             </div>
 
             <div class="mb-3">
                 <label for="address" class="mb-2">Address</label>
-                <input class="form-control my-label @error('address') is-invalid @enderror" type="text" name="address" id="address" placeholder="Enter apartment address">
+                <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="address" placeholder="Enter apartment address">
                 @error('address')
                     <div class="invalid-feedback">
                         {{$message}}
