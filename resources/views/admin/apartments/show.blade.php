@@ -8,11 +8,10 @@ $routeName = Route::currentRouteName();
 
 
 @extends('layouts/admin')
-
 @section('content')
-
     <main id="apartment_show">
 
+        {{-- Sidebar --}}
         <aside id="admin-sidebar" class="mt-5">
             <div class="card {{ $routeName == 'admin.dashboard' ? 'border-danger' : ''}}">
                 <div class="card-header {{ $routeName == 'admin.dashboard' ? 'text-danger' : ''}}">
@@ -34,35 +33,41 @@ $routeName = Route::currentRouteName();
                 </div>
             </div>
         </aside>
+        {{-- end Sidebar --}}
       
 
+        {{-- main --}}
         <div class="container">
 
+            {{-- Apartment - name --}}
             <h1 class="my-3">{{$apartment->name}}</h1>
 
+            {{-- Apartment - Photo --}}
             <div class="pt-4">
                 <h3 class="mb-4">Photo</h3>
-
                 <div class="img_container"><img src="{{asset('storage/' . $apartment->cover_image)}}" alt="Photo"></div>
             </div>
 
+            {{-- Apartment - Details --}}
             <div class="listing py-5">
-
                 <h3>Listing Basics</h3>
-
                 <ul>
+                    {{-- Apartment - name --}}
                     <li>
                         <div class="listing_title"><strong>Listing Title</strong> </div>
                         <div>{{$apartment->name}}</div>
                     </li>
+                    {{-- Apartment - description --}}
                     <li>
                         <div class="listing_title"><strong>Listing Description</strong></div>
                         <div>{{$apartment->description}}</div>
                     </li>
+                    {{-- Apartment - is visible --}}
                     <li>
                         <div class="listing_title"><strong>Listing status</strong></div>
                         <div><i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i> {{$apartment->isVisible == 1 ? "Listed - Guests can book your listing and find it in search results." : "Unlisted - Guests can't book your listing or find it in search results."}}</div>
                     </li>
+                    {{-- Apartment - Services --}}
                     <li>
                         <div class="listing_title"><strong>Amenities</strong></div>
                         <div>
@@ -74,6 +79,7 @@ $routeName = Route::currentRouteName();
                         </div>
                     </li>
 
+                    {{-- Apartment - address --}}
                     <li>
                         <div class="listing_title"><strong>Listing Address</strong></div>
                         <div>{{$apartment->address}}</div>
@@ -81,22 +87,24 @@ $routeName = Route::currentRouteName();
                 </ul>
 
                 <div class="bottom_listing py-5">
-
                     <h3>Property and Rooms</h3>
-    
                     <ul>
+                        {{-- Apartment - rooms --}}
                         <li>
                             <div class="listing_title"><strong>Rooms</strong></div>
                             <div>{{$apartment->rooms_number}}</div>
                         </li>
+                        {{-- Apartment - sqm --}}
                         <li>
                             <div class="listing_title"><strong>Square meters</strong></div>
                             <div>{{$apartment->sqm}}</div>
                         </li>
+                        {{-- Apartment - beds --}}
                         <li>
                             <div class="listing_title"><strong>Beds</strong></div>
                             <div>{{$apartment->beds_number}}</div>
                         </li>
+                        {{-- Apartment - bathroom --}}
                         <li>
                             <div class="listing_title"><strong>Bathrooms</strong></div>
                             <div>{{$apartment->bathrooms_number}}</div>
@@ -105,17 +113,14 @@ $routeName = Route::currentRouteName();
                 </div>
             </div>
                                 
-            
-            {{-- <div class="mb-4"><a href="">Visualizza messaggi appartamento</a></div> --}}
-    
+            {{-- Delete - button --}}
             <div class="d-flex gap-3 py-3">
-
                 <button class="btn btn-primary "><a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="text-white text-decoration-none">Edit Apartment</a></button>
-                
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     DELETE
                 </button>
     
+                {{-- Delete - modal --}}
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
@@ -133,11 +138,11 @@ $routeName = Route::currentRouteName();
                             @method('DELETE')
                             <button class="btn btn-danger" type="submit">DELETE</button>
                           </form>
-                          
                         </div>
                       </div>
                     </div>
                 </div>
+                {{-- end Delete - modal --}}
             </div>  
         </div>
 
