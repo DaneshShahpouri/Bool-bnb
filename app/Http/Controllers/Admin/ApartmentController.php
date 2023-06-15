@@ -148,21 +148,21 @@ class ApartmentController extends Controller
     public function update(Request $request, Apartment $apartment)
     {
 
-        if($apartment->user_id == Auth::id()){
+    if($apartment->user_id == Auth::id()){
 
-            $formData = $request->all();
+        $formData = $request->all();
 
-            $this->validation($request);
-    
-            $apartment->slug = Str::slug($formData['name'], '-');
+        $this->validation($request);
 
-            $client = new Client();
-            $res = $client->get('https://api.tomtom.com/search/2/geocode/' . urlencode($formData['address']) . '.json', [
-            'query' => [
-                'key' => 'qjmqFCtzdoYUrau6McZvVU6fLcLPEuAA',
-            ],
+        $apartment->slug = Str::slug($formData['name'], '-');
 
-            'verify' => false,
+        $client = new Client();
+        $res = $client->get('https://api.tomtom.com/search/2/geocode/' . urlencode($formData['address']) . '.json', [
+        'query' => [
+            'key' => 'qjmqFCtzdoYUrau6McZvVU6fLcLPEuAA',
+        ],
+
+        'verify' => false,
         ]);
 
         if ($res->getStatusCode() == 200) {
@@ -207,7 +207,6 @@ class ApartmentController extends Controller
         return redirect()->route('admin.apartments.show', $apartment );
 
     } else {
-
         return redirect()->route('admin.apartments.index');
     }
 }
