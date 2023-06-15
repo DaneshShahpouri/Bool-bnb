@@ -20,9 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,11 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
  Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function(){
 
     Route::resource('apartments', ApartmentController::class)->parameters(['apartments' => 'apartment:slug']);
-    Route::get('/' ,[DashboardController::class , 'index'])->name('dashboard');
+    Route::get('dashboard' ,[DashboardController::class , 'index'])->name('dashboard');
    
 });
 

@@ -35,7 +35,7 @@
 
             <div class="mb-3">
                 <label for="cover_image" class="mb-2">Apartment Photo</label>
-                <input type="file" id="cover_image" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror">
+                <input type="file" id="cover_image" name="cover_image" class="form-control my-label @error('cover_image') is-invalid @enderror">
                 @error('cover_image')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -141,12 +141,7 @@
                 @enderror
             </div>
 
-            
-
-
-    
             <button type="submit" class="btn btn-primary my-2">Add apartment</button>
-
         </form>
 
     </div>

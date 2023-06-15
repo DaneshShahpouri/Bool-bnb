@@ -31,7 +31,7 @@ class ApartmentSeeder extends Seeder
             $apartment->address = $faker->address();
             $apartment->latitude = $faker->latitude(-90, 90);
             $apartment->longitude = $faker->longitude(-180, 180);
-            $apartment->cover_image = $faker->text(30);
+            $apartment->cover_image = 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-765035845223939533/original/633eea1d-1bd8-4fd9-9367-777b9cf8c929.jpeg?im_w=720';
             $apartment->isVisible = $faker->numberBetween(0,1);
             $apartment->slug = Str::slug($apartment->name, '-');
 

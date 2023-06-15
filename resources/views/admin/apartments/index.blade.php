@@ -34,8 +34,8 @@
 
                     <tr>
                         <td>{{$apartment->name}}</td>
-                        <td><i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i> {{$apartment->isVisible == 1 ? 'Listed' : 'Unlisted'}} </td>
-                       
+                        {{-- <td><i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i> {{$apartment->isVisible == 1 ? 'Listed' : 'Unlisted'}} </td> --}}
+                        <td><div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div></td>
                         <td>{{$apartment->rooms_number}}</td>
                         <td>{{$apartment->beds_number}}</td>
                         <td>{{$apartment->bathrooms_number}}</td>

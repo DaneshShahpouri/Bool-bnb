@@ -13,9 +13,6 @@ $routeName = Route::currentRouteName();
 
     <main id="apartment_show">
 
-        
-
-        
         <aside id="admin-sidebar" class="mt-5">
             <div class="card {{ $routeName == 'admin.dashboard' ? 'border-danger' : ''}}">
                 <div class="card-header {{ $routeName == 'admin.dashboard' ? 'text-danger' : ''}}">
@@ -35,10 +32,7 @@ $routeName = Route::currentRouteName();
                     <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Index</a>
                     <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartments</a>
                 </div>
-
             </div>
-
-
         </aside>
       
 
@@ -106,33 +100,45 @@ $routeName = Route::currentRouteName();
                         <li>
                             <div class="listing_title"><strong>Bathrooms</strong></div>
                             <div>{{$apartment->bathrooms_number}}</div>
-                        </li>
-                        
+                        </li>   
                     </ul>
-    
                 </div>
-               
-                
             </div>
                                 
-            
             
             <div class="mb-4"><a href="">Visualizza messaggi appartamento</a></div>
     
             <div class="d-flex gap-3 py-3">
 
                 <button class="btn btn-primary "><a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="text-white text-decoration-none">Edit Apartment</a></button>
-                <form action="{{route('admin.apartments.destroy', $apartment->slug)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                  <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
                 
-            </div>
-
-            
-            
-            
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    DELETE
+                </button>
+    
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete your apartment</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete {{$apartment->name}}?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <form action="{{route('admin.apartments.destroy', $apartment->slug)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit">DELETE</button>
+                          </form>
+                          
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>  
         </div>
 
     </main>

@@ -4,6 +4,13 @@ ul{
     padding: 0;
 }
 
+.check {
+    width: 8px;
+    height: 8px;
+    border: 1px solid rgb(96, 96, 96);
+    border-radius: 50%;
+}
+
 #apartment_show{
 
     display: flex;
@@ -58,9 +65,9 @@ ul{
 
 #apartment_create{
 
-    .my-label {
+    // .my-label {
 
-        width: 45%;
+    //     width: 45%;
 
-    }
+    // }
 }
