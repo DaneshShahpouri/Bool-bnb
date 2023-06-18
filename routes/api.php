@@ -26,5 +26,9 @@ Route::get('test', function () {
 });
 //debug--------------------------
 
+
 Route::get('apartments', [ApartmentController::class, 'index']);
+
+Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
+
 Route::post('messages/store', [MessageController::class, 'store']);

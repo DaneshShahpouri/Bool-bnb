@@ -23,9 +23,7 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::all();
 
-        $error_message = '';
-
-        return view ('admin.apartments.index' , compact('apartments', 'error_message'));
+        return view ('admin.apartments.index' , compact('apartments'));
     }
 
     /**

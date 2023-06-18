@@ -37,7 +37,9 @@
               @endforeach
             </tbody>
           </table>
-      <a href="{{route ('admin.apartments.create')}}">Aggiungi nuovo appartamento</a>
+          <div class="d-flex justify-content-center m-5">
+            <a class="btn btn-outline-primary" href="{{route ('admin.apartments.create')}}">Add new Apartment</a>
+          </div>
     </div>
 </main>    
 @endsection

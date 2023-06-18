@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -15,7 +17,18 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        //Selezionare gli appartamenti dell'user collegato
+        $apartments = Apartment::where('user_id', Auth::id())->get();
+        $param = [];
+
+        //pushare in un array temporaneo gli id
+        foreach ($apartments as $apartment) {
+            array_push($param, $apartment->id);
+        }
+
+        //prendere solo i messaggi che hanno quell'id
+        $messages = Message::where('apartment_id', $param)->get();
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**
