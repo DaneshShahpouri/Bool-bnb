@@ -15,12 +15,12 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->get();
 
-        $user = Auth::id();
-        
+        // $user = Auth::id();
+
         return response()->json([
             'success' => true,
             'results' => $apartments,
-            'user'=> $user,
+            // 'user'=> $user,
         ]);
     }
 
