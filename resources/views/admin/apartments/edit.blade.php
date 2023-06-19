@@ -60,13 +60,26 @@
             <div class="mb-3 form-group">
                 <div class="text-uppercase fw-bold mb-2">Select Amenities:</div>
                 <div class="d-flex">
-                    @foreach ($services as $service)    
+                    @foreach ($services as $service)  
                         <div class="form-check">
-                            <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
+
+                            @if($errors->any())
+                                <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($apartment->id, old('services', [])))>
+                            @else
+                                <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
+                            @endif
+
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
                         </div>
                     @endforeach
                 </div>
+
+                @error('services')
+                <div class="text-danger">
+                    {{$message}}
+                </div>
+                @enderror 
+                
             </div>
 
             {{-- address --}}
