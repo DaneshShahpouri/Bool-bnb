@@ -14,7 +14,7 @@
             {{-- name --}}
             <div class="mb-3">
                 <label for="name" class="mb-2">Listing Title</label>
-                <input class="form-control my-label @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Enter apartment name" required minlength="5" maxlength="255">
+                <input class="form-control my-label @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Enter apartment name" required minlength="5" maxlength="255" value='{{old('name')}}'>
                 @error('name')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -25,7 +25,7 @@
             {{-- description --}}
             <div class="mb-3">
                 <label for="description" class="mb-2">Listing Description</label>
-                <textarea class="form-control my-label @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10" placeholder="Enter apartment description" required minlength="10" maxlength="800"></textarea>
+                <textarea class="form-control my-label @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10" placeholder="Enter apartment description" required minlength="10" maxlength="800">{{old('description')}}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -59,7 +59,7 @@
                 <div class="d-flex">
                     @foreach ($services as $service)
                         <div class="form-check">
-                            <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}">
+                            <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($service->id, old('services', [])))>
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
                         </div>
                     @endforeach
@@ -75,7 +75,7 @@
             {{-- address --}}
             <div class="mb-3">
                 <label for="address" class="mb-2">Address</label>
-                <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="address" placeholder="Enter apartment address" required minlength="7" maxlength="100">
+                <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="address" placeholder="Enter apartment address" required minlength="7" maxlength="100" value='{{old('address')}}'>
                 @error('address')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -86,7 +86,7 @@
             {{-- rooms-number --}}
             <div class="mb-3">
                 <label for="rooms_number" class="mb-2">Rooms</label>
-                <input class="form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms" required min="1" max="30">
+                <input class="form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms" required min="1" max="30" value='{{old('rooms_number')}}'>
                 @error('rooms_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -97,7 +97,7 @@
             {{-- beds-number --}}
             <div class="mb-3">
                 <label for="beds_number" class="mb-2">Beds</label>
-                <input class="form-control my-label @error('beds_number') is-invalid @enderror" type="number" name="beds_number" id="beds_number" placeholder="Enter total beds" required min="1" max="60">
+                <input class="form-control my-label @error('beds_number') is-invalid @enderror" type="number" name="beds_number" id="beds_number" placeholder="Enter total beds" required min="1" max="60" value='{{old('beds_number')}}'>
                 @error('beds_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -108,7 +108,7 @@
             {{-- bathrooms-number --}}
             <div class="mb-1">
                 <label for="bathrooms_number" class="mb-2">Bathrooms</label>
-                <input class="form-control my-label @error('bathrooms_number') is-invalid @enderror" type="number" name="bathrooms_number" id="bathrooms_number" placeholder="Enter total bathrooms" required min="1" max="20">
+                <input class="form-control my-label @error('bathrooms_number') is-invalid @enderror" type="number" name="bathrooms_number" id="bathrooms_number" placeholder="Enter total bathrooms" required min="1" max="20" value='{{old('bathrooms_number')}}'>
                 @error('bathrooms_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -119,7 +119,7 @@
             {{-- sqm --}}
             <div class="mb-3">
                 <label for="sqm" class="mb-2">Area (sqm) </label>
-                <input class="form-control my-label @error('sqm') is-invalid @enderror" type="number" name="sqm" id="sqm" placeholder="Enter apartment square meters" required min="10" max="5000">
+                <input class="form-control my-label @error('sqm') is-invalid @enderror" type="number" name="sqm" id="sqm" placeholder="Enter apartment square meters" required min="10" max="5000" value='{{old('sqm')}}'>
                 @error('sqm')
                     <div class="invalid-feedback">
                         {{$message}}
