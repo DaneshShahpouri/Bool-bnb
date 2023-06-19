@@ -32,10 +32,10 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
 
-            'name' => ['string', 'max:255', 'alpha', 'nullable'],
-            'surname' => ['string' ,'max:255', 'alpha', 'nullable'],
+            'name' => ['max:255', "regex:/^[\pL\s'.]+$/u", 'nullable'],
+            'surname' => ['max:255', "regex:/^[\pL\s'.]+$/u", 'nullable'],
             'date_of_birth' => ['date', 'nullable'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

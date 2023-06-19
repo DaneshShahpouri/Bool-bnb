@@ -17,11 +17,26 @@ class ApartmentController extends Controller
 
         // $user = Auth::id();
 
-        return response()->json([
-            'success' => true,
-            'results' => $apartments,
-            // 'user'=> $user,
-        ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'results' => $apartments,
+        //     // 'user'=> $user,
+        // ]);
+
+        $user = Auth::user();
+
+        if ($user) {
+            return response()->json([
+                'success' => true,
+                'results' => $apartments,
+                'user' => $user,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'results' => 'Not Authorized',
+            ]);
+        }
     }
 
     public function services()
