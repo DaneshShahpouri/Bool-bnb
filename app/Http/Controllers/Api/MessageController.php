@@ -12,31 +12,27 @@ class MessageController extends Controller
     public function store(Request $request)
     {
 
-        function validation($request)
-        {
 
-            $formData = $request->all();
+        $formData = $request->all();
 
-            $validator = Validator::make($formData, [
+        Validator::make($formData, [
 
-                'apartment_id' => 'required',
-                'username' => 'required|max:200|min:3',
-                'content' => 'required|max:600',
-                'email' => 'required',
+            'apartment_id' => 'required',
+            'username' => 'required|max:200|min:3',
+            'content' => 'required|max:600',
+            'email' => 'required',
 
-            ], [
-                'username.required' => 'Please enter a name',
-                'username.max' => 'Username must be shorter than :max characters',
-                'username.min' => 'Username must be longer than :min characters',
-                'content.required' => 'Please write a message',
-                'content.max' => 'Content must be shorter than :max characters',
-                'content.min' => 'Content must be longer than :min characters',
-                'email.required' => 'Please enter a email',
+        ], [
+            'username.required' => 'Please enter a name',
+            'username.max' => 'Username must be shorter than :max characters',
+            'username.min' => 'Username must be longer than :min characters',
+            'content.required' => 'Please write a message',
+            'content.max' => 'Content must be shorter than :max characters',
+            'content.min' => 'Content must be longer than :min characters',
+            'email.required' => 'Please enter a email',
 
-            ])->validate();
+        ])->validate();
 
-            return $validator;
-        }
 
         $message = new Message();
 

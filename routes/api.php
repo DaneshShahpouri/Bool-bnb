@@ -28,6 +28,7 @@ Route::get('test', function () {
 
 
 Route::get('apartments', [ApartmentController::class, 'index']);
+Route::get('services', [ApartmentController::class, 'services']);
 
 Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
 
