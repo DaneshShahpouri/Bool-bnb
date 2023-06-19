@@ -48,8 +48,8 @@
             <div class="mb-3">
                 <label for="isVisible">Visibility :</label>
                 <select name="isVisible" id="isVisible" class="w-20" required>
-                    <option value=1>Show Listing</option>
-                    <option value=0>Hide Listing</option>
+                    <option value=1 {{ old('isVisible') == '1' ? 'selected' : '' }}>Show Listing</option>
+                    <option value=0 {{ old('isVisible') == '0' ? 'selected' : '' }}>Hide Listing</option>
                 </select>
             </div>
 
