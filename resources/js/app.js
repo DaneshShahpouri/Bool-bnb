@@ -5,7 +5,6 @@ import.meta.glob([
     '../img/**'
 ])
 
-
 // CHECK PASSWORD CONFIRM
 //-------------------------------------------------------
 if (document.getElementById('password-confirm')) {
