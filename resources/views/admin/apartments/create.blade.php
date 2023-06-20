@@ -8,7 +8,7 @@
 
         <h1 class="my-4">Add new Aparment</h1>
         
-        <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServices()">
             @csrf
 
             {{-- name --}}
@@ -59,11 +59,12 @@
                 <div class="d-flex">
                     @foreach ($services as $service)
                         <div class="form-check">
-                            <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($service->id, old('services', [])))>
+                            <input type="checkbox" class="services" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($service->id, old('services', [])))>
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
                         </div>
                     @endforeach
                 </div>
+                <div class="text-danger" id="messageServices"></div>
 
                 @error('services')
                 <div class="text-danger">
@@ -128,10 +129,25 @@
             </div>
 
             {{-- submit --}}
-            <button type="submit" class="btn btn-primary my-2">Add apartment</button>
+            <button type="submit" class="btn btn-primary my-2" >Add apartment</button>
         </form>
 
     </div>
+
+    <script type="text/javascript">
+        function validateServices() {
+            let services = document.querySelectorAll('input[type="checkbox"][class="services"]');
+            let isChecked = Array.from(services).some(checkbox => checkbox.checked);
+            let message = document.getElementById('messageServices')
+    
+            if (!isChecked) {
+                message.innerText='Please select at least one service.';
+                return false;
+            }
+    
+            return true;
+        }
+    </script>
 
 </main>
 

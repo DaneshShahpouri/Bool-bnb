@@ -10,7 +10,7 @@
 
         <h1 class="my-4">Edit Apartment : <em>{{$apartment->name}}</em></h1>
 
-        <form action="{{route ('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route ('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServicesUpdate()">
             @csrf
             @method('PUT')
 
@@ -38,7 +38,7 @@
 
             {{-- cover-image --}}
             <div class="mb-3">
-                <label for="cover_image" class="mb-2">Apartment Photo*</label>
+                <label for="cover_image" class="mb-2">Apartment Photo</label>
                 <input type="file" id="cover_image" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror">
                 @error('cover_image')
                     <div class="invalid-feedback">
@@ -61,18 +61,19 @@
                 <div class="text-uppercase fw-bold mb-2">Select Amenities*:</div>
                 <div class="d-flex">
                     @foreach ($services as $service)  
-                        <div class="form-check">
-
-                            @if($errors->any())
-                                <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($apartment->id, old('services', [])))>
+                    <div class="form-check">
+                        
+                        @if($errors->any())
+                        <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($apartment->id, old('services', [])))>
                             @else
-                                <input type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
+                            <input class="update-services" type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
                             @endif
-
+                            
                             <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
                         </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                    <div class="text-danger" id="messageServicesUpdate"></div>
 
                 @error('services')
                 <div class="text-danger">
@@ -96,7 +97,7 @@
             {{-- rooms-number --}}
             <div class="mb-3">
                 <label for="rooms_number" class="mb-2">Rooms*</label>
-                <input class="form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms" value="{{old('rooms_number') ?? $apartment->rooms_number}}" required min="1" max="30">
+                <input class=" form-control my-label @error('rooms_number') is-invalid @enderror" type="number" name="rooms_number" id="rooms_number" placeholder="Enter total rooms" value="{{old('rooms_number') ?? $apartment->rooms_number}}" required min="1" max="30">
                 @error('rooms_number')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -147,7 +148,7 @@
     @else
     <div class="container my-5 d-flex flex-column justify-content-center align-items-center">
         <div class="alert alert-danger w-100" role="alert">
-            You don't have access to this section.
+            401 Unauthorized: You don't have access to this section.
         </div>
 
         <a class="btn btn-primary" href="{{route('admin.apartments.index')}}">Go back to your apartments</a>
@@ -155,4 +156,18 @@
     @endif
 </main>
     
+<script type="text/javascript">
+    function validateServicesUpdate() {
+        let services = document.querySelectorAll('input[type="checkbox"][class="update-services"]');
+        let isChecked = Array.from(services).some(checkbox => checkbox.checked);
+        let message = document.getElementById('messageServicesUpdate')
+
+        if (!isChecked) {
+            message.innerText='Please select at least one service.';
+            return false;
+        }
+
+        return true;
+    }
+</script>
 @endsection

@@ -9,6 +9,9 @@
             <thead>
               <tr>
                 <th scope="col">Listing</th>
+                {{-- slug debug --}}
+                <th scope="col">slug</th>
+                {{-- slug debug --}}
                 <th scope="col">Status</th>
                 <th scope="col">Rooms</th>
                 <th scope="col">Beds</th>
@@ -23,6 +26,9 @@
               @if ($apartment->user_id == Auth::id())
                 <tr>
                   <td>{{strlen($apartment->name) > 40 ? substr($apartment->name, 0, 40) . '...' : $apartment->name}}</td>
+                  {{-- slug debug --}}
+                  <td>{{$apartment->slug}}</td>
+                  {{-- slug debug --}}
                   <td class="d-flex align-items-center">
                     <div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div>
                     <div class="px-2">{{$apartment->isVisible == 1 ? ' Listed' : ' Unlisted'}}</div>
