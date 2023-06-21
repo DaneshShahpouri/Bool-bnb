@@ -24,7 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('apartments', [ApartmentController::class, 'index']);
 
+Route::get('apartments/distance/{city}/{lat2}/{lon2}', [ApartmentController::class, 'distance']);
 
+Route::get('apartments/{citta}', [ApartmentController::class, 'address']);
 
 Route::get('services', [ApartmentController::class, 'services']);
 
@@ -34,15 +36,16 @@ Route::post('messages/store', [MessageController::class, 'store']);
 
 
 //debug---------------------------
-Route::get('test', function () {
-    return 'ciao';
-});
+// Route::get('test', function () {
+//     return 'ciao';
+// });
 
-Route::post('apartments/search', [ApartmentController::class, 'search']);
-Route::get('apartments/{citta}/{range?}', [ApartmentController::class, 'prova']);
-Route::get('apartments/prova', [ApartmentController::class, 'provaci']);
+// Route::post('apartments/search', [ApartmentController::class, 'search']);
 
-Route::get('/posts/{post}/comments/{comment}', function (string $postId, string $commentId) {
-    return [$postId, $commentId];
-});
+
+// Route::get('apartments/prova', [ApartmentController::class, 'provaci']);
+
+// Route::get('/posts/{post}/comments/{comment}', function (string $postId, string $commentId) {
+//     return [$postId, $commentId];
+// });
 //---------debug

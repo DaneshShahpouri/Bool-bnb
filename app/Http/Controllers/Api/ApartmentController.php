@@ -8,6 +8,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
 
 class ApartmentController extends Controller
 {
@@ -92,15 +93,11 @@ class ApartmentController extends Controller
         }
     }
 
-    public function prova($citta, $raggioTerraange)
+    public function address($citta)
     {
 
-        if ($raggioTerraange != null) {
-            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->where('address', 'LIKE', '%' . $citta . '%')->first();
-        } else {
+        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->where('address', 'LIKE', '%' . $citta . '%')->get();
 
-            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->where('address', 'LIKE', '%' . $citta . '%')->first();
-        }
 
         if ($citta) {
             return response()->json([
@@ -110,67 +107,47 @@ class ApartmentController extends Controller
         }
     }
 
-    public function provaci()
+
+
+    public function distance($city, $lat2, $lon2)
     {
-        $lat1 = 41.890557;
+        // $lat1 = 41.89055;
+        // $lon1 = 12.50073;
+
+        // $lat2 = 41.88211;
+        // $lon2 = 12.56878;
+        // Geocoding
+        $client = new Client();
+        $geocodeResponse = $client->request('GET', 'https://api.tomtom.com/search/2/search/' . $city . '.json?countrySet=IT&key=8AyhtFuGo44d57QodNOzeOGIsIaJsEq5');
+
+        $geocodeData = json_decode($geocodeResponse->getBody());
+
+        $lat1 = $geocodeData->results[0]->position->lat;
+        $lon1 = $geocodeData->results[0]->position->lon;
+
+
+        $lat1 = 41.89055;
         $lon1 = 12.50073;
 
-        $lat2 = 41.88211;
-        $lon2 = 12.56878;
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+            return 0;
+        } else {
+            $lat1Rad = deg2rad($lat1);
+            $lon1Rad = deg2rad($lon1);
+            $lat2Rad = deg2rad($lat2);
+            $lon2Rad = deg2rad($lon2);
 
-        $distance =  $this->haversineGreatCircleDistance($lat1, $lon1, $lat2, $lon2);
+            $deltaLon = $lon2Rad - $lon1Rad;
 
-        // //funzione di conversione
-        // if ($lat1) {
-        //     $raggioTerra = 6371e3; // metri
-        //     $φ1 = $lat1 * pi() / 180; // φ, λ in radianti
-        //     $φ2 = $lat2 * pi() / 180;
-        //     $Δφ = ($lat2 - $lat1) * pi() / 180;
-        //     $Δλ = ($lon2 - $lon1) * pi() / 180;
+            $distance = acos(sin($lat1Rad) * sin($lat2Rad) + cos($lat1Rad) * cos($lat2Rad) * cos($deltaLon));
+            $distance = rad2deg($distance);
+            $kilometers = $distance * 111.13384; // Raggio medio della Terra in chilometri
 
-        //     $a = sin($Δφ / 2) * sin($Δφ / 2) +
-        //         cos($φ1) * cos($φ2) *
-        //         sin($Δλ / 2) * sin($Δλ / 2);
-        //     $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-
-        //     $d = $raggioTerra * $c; // in metri
-        // }
-
-        return response()->json([
-            'success' => true,
-            'results' => $distance
-        ]);
-    }
-
-
-    /**
-     * Calculates the great-circle distance between two points, with
-     * the Haversine formula.
-     * @param float $latitudeFrom Latitude of start point in [deg decimal]
-     * @param float $longitudeFrom Longitude of start point in [deg decimal]
-     * @param float $latitudeTo Latitude of target point in [deg decimal]
-     * @param float $longitudeTo Longitude of target point in [deg decimal]
-     * @param float $earthRadius Mean earth radius in [m]
-     * @return float Distance between points in [m] (same as earthRadius)
-     */
-    function haversineGreatCircleDistance(
-        $latitudeFrom,
-        $longitudeFrom,
-        $latitudeTo,
-        $longitudeTo,
-        $earthRadius = 6371000
-    ) {
-        // convert from degrees to radians
-        $latFrom = deg2rad($latitudeFrom);
-        $lonFrom = deg2rad($longitudeFrom);
-        $latTo = deg2rad($latitudeTo);
-        $lonTo = deg2rad($longitudeTo);
-
-        $latDelta = $latTo - $latFrom;
-        $lonDelta = $lonTo - $lonFrom;
-
-        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
-            cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
-        return $angle * $earthRadius;
+            return response()->json([
+                'success' => true,
+                'results' =>  $kilometers,
+                //'geo' => $geocodeResponse
+            ]);
+        }
     }
 }
