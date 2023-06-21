@@ -290,9 +290,9 @@ class ApartmentController extends Controller
         ];
 
         if ($request->isMethod('post')) {
-            $rules['cover_image'] = 'required|image|max:4096';
+            $rules['cover_image'] = 'required|image|max:2096';
         } elseif ($request->isMethod('put') || $request->isMethod('patch')) {
-            $rules['cover_image'] = 'nullable|image|max:4096';
+            $rules['cover_image'] = 'nullable|image|max:2096';
         }
 
         $validator = Validator::make(

@@ -8,7 +8,7 @@
 
         <h1 class="my-4">Add new Aparment</h1>
         
-        <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServices()">
+        <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServices()" id="create-form">
             @csrf
 
             {{-- name --}}
@@ -36,7 +36,8 @@
             {{-- cover-image --}}
             <div class="mb-3">
                 <label for="cover_image" class="mb-2">Apartment Photo*</label>
-                <input type="file" id="cover_image" name="cover_image" class="form-control my-label @error('cover_image') is-invalid @enderror" required>
+                <input type="file" id="cover_image_edit" name="cover_image" class="form-control my-label @error('cover_image') is-invalid @enderror" required>
+                <div class="text-danger" id="error-image-create"></div>
                 @error('cover_image')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -139,7 +140,8 @@
             let services = document.querySelectorAll('input[type="checkbox"][class="services"]');
             let isChecked = Array.from(services).some(checkbox => checkbox.checked);
             let message = document.getElementById('messageServices')
-    
+            message.innerText='';
+
             if (!isChecked) {
                 message.innerText='Please select at least one service.';
                 return false;
@@ -147,6 +149,17 @@
     
             return true;
         }
+
+        document.getElementById('create-form').addEventListener('submit', function( evt ) {
+            let file = document.getElementById('cover_image_edit').files[0];
+            let error = document.getElementById('error-image-create');
+            error.innerText=''
+            // var regex = /^(image/)(gif|(x-)?png|p?jpeg)$/i;
+            if( file.size >= (1048576 * 2)) { // 1MB
+                error.innerText='File size must not exceed 2Mb'
+                evt.preventDefault();
+            } 
+        }, false);
     </script>
 
 </main>

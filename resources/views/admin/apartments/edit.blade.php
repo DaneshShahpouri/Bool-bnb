@@ -174,10 +174,11 @@
     }
 
     document.getElementById('edit-form').addEventListener('submit', function( evt ) {
-    var file = document.getElementById('cover_image').files[0];
+    let file = document.getElementById('cover_image').files[0];
     let error = document.getElementById('error-image');
+    error.innerText=''
     // var regex = /^(image/)(gif|(x-)?png|p?jpeg)$/i;
-    if( !(file && file.size < (1048576 * 2))) { // 1MB
+    if( file.size >= (1048576 * 2)) { // 1MB
         error.innerText='File size must not exceed 2Mb'
         evt.preventDefault();
     } 
