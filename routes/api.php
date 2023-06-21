@@ -20,16 +20,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//debug---------------------------
-Route::get('test', function () {
-    return 'ciao';
-});
-//debug--------------------------
 
 
-Route::get('apartments/{id}', [ApartmentController::class, 'index']);
+Route::get('apartments', [ApartmentController::class, 'index']);
+
+
+
 Route::get('services', [ApartmentController::class, 'services']);
 
 Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
 
 Route::post('messages/store', [MessageController::class, 'store']);
+
+
+//debug---------------------------
+Route::get('test', function () {
+    return 'ciao';
+});
+
+Route::post('apartments/search', [ApartmentController::class, 'search']);
+Route::get('apartments/{citta}/{range?}', [ApartmentController::class, 'prova']);
+Route::get('apartments/prova', [ApartmentController::class, 'provaci']);
+
+Route::get('/posts/{post}/comments/{comment}', function (string $postId, string $commentId) {
+    return [$postId, $commentId];
+});
+//---------debug

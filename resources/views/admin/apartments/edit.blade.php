@@ -10,7 +10,7 @@
 
         <h1 class="my-4">Edit Apartment : <em>{{$apartment->name}}</em></h1>
 
-        <form action="{{route ('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServicesUpdate()">
+        <form action="{{route ('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServicesUpdate()" id="edit-form">
             @csrf
             @method('PUT')
 
@@ -40,6 +40,7 @@
             <div class="mb-3">
                 <label for="cover_image" class="mb-2">Apartment Photo</label>
                 <input type="file" id="cover_image" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror">
+                <div class="text-danger" id="error-image"></div>
                 @error('cover_image')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -161,6 +162,8 @@
         let services = document.querySelectorAll('input[type="checkbox"][class="update-services"]');
         let isChecked = Array.from(services).some(checkbox => checkbox.checked);
         let message = document.getElementById('messageServicesUpdate')
+        message.innerText='';
+
 
         if (!isChecked) {
             message.innerText='Please select at least one service.';
@@ -169,5 +172,15 @@
 
         return true;
     }
+
+    document.getElementById('edit-form').addEventListener('submit', function( evt ) {
+    var file = document.getElementById('cover_image').files[0];
+    let error = document.getElementById('error-image');
+    // var regex = /^(image/)(gif|(x-)?png|p?jpeg)$/i;
+    if( !(file && file.size < (1048576 * 2))) { // 1MB
+        error.innerText='File size must not exceed 2Mb'
+        evt.preventDefault();
+    } 
+}, false);
 </script>
 @endsection

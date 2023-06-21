@@ -196,8 +196,9 @@ class ApartmentController extends Controller
             }
 
             if ($request->hasFile('cover_image')) {
-
-                if ($apartment->cover_image) {
+                $weight = $request->file('cover_image')->getSize();
+                // dd($weight);
+                if ($apartment->cover_image && $weight <= 2096) {
 
                     Storage::delete($apartment->cover_image);
                 }
@@ -207,7 +208,7 @@ class ApartmentController extends Controller
                 $formData['cover_image'] = $path;
             }
 
-           
+
             $titleOld = $apartment->name;
             // verifica se è stato modificato il titolo e in caso viene aggiornato lo slug
             if ($titleOld != $formData['name']) {
