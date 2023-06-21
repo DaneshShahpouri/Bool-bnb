@@ -24,7 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('apartments', [ApartmentController::class, 'index']);
 
-Route::get('apartments/distance/{city}/{lat2}/{lon2}', [ApartmentController::class, 'distance']);
+Route::get('apartments/getapartment/{lat}/{lon}/{radius}/{rooms?}/{beds?}/{bath?}/{services?}', [ApartmentController::class, 'getApartmentByCity']);
+
+// Route::get('apartments/distance/{lat1}/{lon2}/{lat2}/{lon2}', [ApartmentController::class, 'distance']);
 
 Route::get('apartments/{citta}', [ApartmentController::class, 'address']);
 

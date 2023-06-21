@@ -109,26 +109,10 @@ class ApartmentController extends Controller
 
 
 
-    public function distance($city, $lat2, $lon2)
+    public function distance($lat1, $lon1, $lat2, $lon2)
     {
-        // $lat1 = 41.89055;
-        // $lon1 = 12.50073;
 
-        // $lat2 = 41.88211;
-        // $lon2 = 12.56878;
         // Geocoding
-        $client = new Client();
-        $geocodeResponse = $client->request('GET', 'https://api.tomtom.com/search/2/search/' . $city . '.json?countrySet=IT&key=8AyhtFuGo44d57QodNOzeOGIsIaJsEq5');
-
-        $geocodeData = json_decode($geocodeResponse->getBody());
-
-        $lat1 = $geocodeData->results[0]->position->lat;
-        $lon1 = $geocodeData->results[0]->position->lon;
-
-
-        $lat1 = 41.89055;
-        $lon1 = 12.50073;
-
         if (($lat1 == $lat2) && ($lon1 == $lon2)) {
             return 0;
         } else {
@@ -143,11 +127,51 @@ class ApartmentController extends Controller
             $distance = rad2deg($distance);
             $kilometers = $distance * 111.13384; // Raggio medio della Terra in chilometri
 
-            return response()->json([
-                'success' => true,
-                'results' =>  $kilometers,
-                //'geo' => $geocodeResponse
-            ]);
+            return  $kilometers;
         }
+    }
+
+    public function getApartmentByCity($lat, $lon, $radius, $rooms = null, $beds = null, $bath = null, $services = null)
+    {
+
+        if (!$rooms) {
+            $rooms = 30;
+        }
+        if (!$beds) {
+            $beds = 60;
+        }
+        if (!$bath) {
+            $bath = 20;
+        }
+        if (!$services) {
+        }
+
+        $tempAmenities = explode(',',  $services);
+        $amenities = array_map(function ($value) {
+            return intval($value); // o (float)$value per convertire in numeri decimali
+        }, $tempAmenities);
+
+        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+            ->where('rooms_number', '>', $rooms)
+            ->where('beds_number', '>', $beds)
+            ->where('bathrooms_number', '>', $bath)
+            ->get();
+
+        $newApartments = [];
+
+        foreach ($apartments as $apartment) {
+            if ($this->distance(floatval($apartment->latitude), floatval($apartment->longitude), floatval($lat), floatval($lon)) < intval($radius)) {
+                // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
+                $apartmentAmenities = $apartment->services()->pluck('id')->toArray();
+                if (count(array_diff($amenities, $apartmentAmenities)) == 0) {
+                    array_push($newApartments, $apartment);
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'results' => $newApartments
+        ]);
     }
 }
