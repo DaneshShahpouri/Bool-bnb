@@ -30,7 +30,7 @@ Route::get('apartments/{citta}', [ApartmentController::class, 'address']);
 
 Route::get('services', [ApartmentController::class, 'services']);
 
-Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
+Route::get('apartments-show/{slug}', [ApartmentController::class, 'show']);
 
 Route::post('messages/store', [MessageController::class, 'store']);
 
