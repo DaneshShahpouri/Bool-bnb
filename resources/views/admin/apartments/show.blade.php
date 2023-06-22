@@ -18,7 +18,7 @@ $routeName = Route::currentRouteName();
                     Home
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="{{route('admin.dashboard')}}" class="list-group-item list-group-item-action {{ routeNameContains('admin.dashboard') ? 'active' : ''}}">dashboard</a>
+                    <a href="{{route('admin.dashboard')}}" class="list-group-item list-group-item-action {{ routeNameContains('admin.dashboard') ? 'active' : ''}}">Dashboard</a>
                 </div>
             </div>
 
@@ -28,8 +28,20 @@ $routeName = Route::currentRouteName();
                     Apartments
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Index</a>
-                    <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartments</a>
+                    <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Your Apartments</a>
+                    <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a>
+                </div>
+            </div>
+
+
+            {{-- card messaggi --}}
+            <div class="card {{ routeNameContains('apartments.') ? 'border-danger' : ''}}">
+                <div class="card-header {{ routeNameContains('apartments.') ? 'text-danger' : ''}}">
+                    Messages
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{route('admin.messages.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">All Messages</a>
+                    <a href="{{route ('admin.messages.single', $apartment->id)}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Apt Messages</a>
                 </div>
             </div>
         </aside>
@@ -49,7 +61,7 @@ $routeName = Route::currentRouteName();
             </div>
 
             {{-- Apartment - Details --}}
-            <div class="listing py-5">
+            <div class="listing pt-5">
                 <h3>Listing Basics</h3>
                 <ul>
                     {{-- Apartment - name --}}
@@ -86,7 +98,7 @@ $routeName = Route::currentRouteName();
                     </li>
                 </ul>
 
-                <div class="bottom_listing py-5">
+                <div class="bottom_listing py-3">
                     <h3>Property and Rooms</h3>
                     <ul>
                         {{-- Apartment - rooms --}}
@@ -114,7 +126,7 @@ $routeName = Route::currentRouteName();
             </div>
                                 
             {{-- Delete - button --}}
-            <div class="d-flex gap-3 py-3">
+            <div class="d-flex gap-3 pb-5">
                 <button class="btn btn-primary "><a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="text-white text-decoration-none">Edit Apartment</a></button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     DELETE

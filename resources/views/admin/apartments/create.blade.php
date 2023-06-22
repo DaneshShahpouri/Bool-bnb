@@ -6,7 +6,7 @@
 
     <div class="container">
 
-        <h1 class="my-4">Add new Aparment</h1>
+        <h1 class="my-4">Add a new apartment</h1>
         
         <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServices()" id="create-form">
             @csrf

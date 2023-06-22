@@ -25,10 +25,9 @@
               @foreach ($apartments as $apartment)
               @if ($apartment->user_id == Auth::id())
                 <tr>
-                  <td>{{strlen($apartment->name) > 40 ? substr($apartment->name, 0, 40) . '...' : $apartment->name}}</td>
-                  {{-- slug debug --}}
-                  <td>{{$apartment->slug}}</td>
-                  {{-- slug debug --}}
+                  <td>{{strlen($apartment->name) > 25 ? substr($apartment->name, 0, 25) . '...' : $apartment->name}}</td>
+                  <td>{{strlen($apartment->slug) > 40 ? substr($apartment->slug, 0, 40) . '...' : $apartment->slug}}</td>
+
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div>
@@ -39,7 +38,12 @@
                   <td>{{$apartment->beds_number}}</td>
                   <td>{{$apartment->bathrooms_number}}</td>
                   <td>{{strlen($apartment->address) > 40 ? substr($apartment->address, 0, 40) . '...' : $apartment->address}}</td>
-                  <td><a href="{{route ('admin.apartments.show' , $apartment->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a></td>
+                  <td>
+                    <div class="d-flex gap-3">
+                      <a href="{{route ('admin.apartments.show' , $apartment->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                      <a href="{{route ('admin.messages.single', $apartment->id)}}"><i class="fa-regular fa-envelope"></i></i></a>
+                    </div>
+                  </td>
                 </tr>
               @endif
               @endforeach

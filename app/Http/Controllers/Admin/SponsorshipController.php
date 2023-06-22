@@ -5,9 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
+use Braintree\Gateway;
 
 class SponsorshipController extends Controller
 {
+
+
+    protected $gateway;
+
+    public function __construct()
+    {
+        $this->gateway = new Gateway([
+            'environment' => env('BRAINTREE_ENV'),
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+        ]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -46,8 +62,11 @@ class SponsorshipController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Sponsorship $sponsorship)
+
     {
-        //
+        $token = $this->gateway->clientToken()->generate();
+
+        return view('admin.sponsorships.show', compact('sponsorship', 'token'));
     }
 
     /**
@@ -70,7 +89,24 @@ class SponsorshipController extends Controller
      */
     public function update(Request $request, Sponsorship $sponsorship)
     {
-        //
+        $amount = $request->amount;
+        $nonce = $request->payment_method_nonce;
+
+        $result = $this->gateway->transaction()->sale([
+            'amount' => $amount,
+            'paymentMethodNonce' => $nonce,
+            'options' => [
+                'submitForSettlement' => True
+            ]
+        ]);
+
+        if ($result->success) {
+            // Handle post-payment success logic here (e.g. update the sponsorship's status)
+            return back()->with('success_message', 'Transaction successful. The sponsorship is now active.');
+        } else {
+            // Handle post-payment failure logic here
+            return back()->withErrors('An error occurred with the message: ' . $result->message);
+        }
     }
 
     /**

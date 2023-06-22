@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SponsorshipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('apartments', ApartmentController::class)->parameters(['apartments' => 'apartment:slug']);
     Route::resource('messages', MessageController::class);
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    //visualizzazione messaggi singolo appartamento
+    Route::get('[apartment/{apartment}/messages', [MessageController::class, 'showByApartment'])->name('messages.single');
+
+    //sponsorship
+    // Route::resource('sponsorships', SponsorshipController::class);
+
+    Route::resource('sponsorships', SponsorshipController::class)->parameters(['sponsorships' => 'sponsorship:id']);
 });
 
 require __DIR__ . '/auth.php';

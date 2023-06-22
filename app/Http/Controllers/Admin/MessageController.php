@@ -18,18 +18,48 @@ class MessageController extends Controller
     public function index()
     {
         //Selezionare gli appartamenti dell'user collegato
-        $apartments = Apartment::where('user_id', Auth::id())->get();
-        $param = [];
+        // $apartments = Apartment::where('user_id', Auth::id())->get();
+        // $param = [];
 
         //pushare in un array temporaneo gli id
-        foreach ($apartments as $apartment) {
-            array_push($param, $apartment->id);
-        }
+        // foreach ($apartments as $apartment) {
+        //     array_push($param, $apartment->id);
+        // }
 
         //prendere solo i messaggi che hanno quell'id
-        $messages = Message::where('apartment_id', $param)->get();
+        // $messages = Message::where('apartment_id', $param)->get();
+        // return view('admin.messages.index', compact('messages'));
+
+
+
+        //Selezionare gli appartamenti dell'user collegato
+        $apartments = Apartment::where('user_id', Auth::id())->get();
+
+        //prendere gli id degli appartamenti
+        $apartmentIds = $apartments->pluck('id')->toArray();
+
+        //prendere solo i messaggi che hanno un id appartamento nell'array
+        $messages = Message::whereIn('apartment_id', $apartmentIds)->get();
+
         return view('admin.messages.index', compact('messages'));
     }
+
+    //messaggi per singolo appartamento
+    public function showByApartment($apartmentId)
+    {
+        $apartment = Apartment::where('id', $apartmentId)->where('user_id', Auth::id())->first();
+
+        if (!$apartment) {
+            abort(404);  // Not Found
+        }
+
+        $messages = Message::where('apartment_id', $apartmentId)->get();
+
+        return view('admin.messages.single', compact('messages'));
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.
