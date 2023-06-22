@@ -135,21 +135,24 @@ class ApartmentController extends Controller
     {
 
         if (!$rooms) {
-            $rooms = 30;
+            $rooms = 0;
         }
         if (!$beds) {
-            $beds = 60;
+            $beds = 0;
         }
         if (!$bath) {
-            $bath = 20;
+            $bath = 0;
         }
         if (!$services) {
+            $services = '';
+        } else {
+
+            $tempAmenities = explode(',',  $services);
+            $amenities = array_map(function ($value) {
+                return intval($value); // o (float)$value per convertire in numeri decimali
+            }, $tempAmenities);
         }
 
-        $tempAmenities = explode(',',  $services);
-        $amenities = array_map(function ($value) {
-            return intval($value); // o (float)$value per convertire in numeri decimali
-        }, $tempAmenities);
 
         $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
             ->where('rooms_number', '>', $rooms)
@@ -161,11 +164,63 @@ class ApartmentController extends Controller
 
         foreach ($apartments as $apartment) {
             if ($this->distance(floatval($apartment->latitude), floatval($apartment->longitude), floatval($lat), floatval($lon)) < intval($radius)) {
+                if ($services != '') {
+                    // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
+                    $apartmentAmenities = $apartment->services()->pluck('id')->toArray();
+                    if (count(array_diff($amenities, $apartmentAmenities)) == 0) {
+                        array_push($newApartments, $apartment);
+                    }
+                } else {
+                    array_push($newApartments, $apartment);
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'results' => $newApartments
+        ]);
+    }
+
+    public function getApartmentByCityEmptyName($rooms = null, $beds = null, $bath = null, $services = null)
+    {
+
+        if (!$rooms) {
+            $rooms = 0;
+        }
+        if (!$beds) {
+            $beds = 0;
+        }
+        if (!$bath) {
+            $bath = 0;
+        }
+        if (!$services) {
+            $services = '';
+        }
+        if ($services) {
+            $tempAmenities = explode(',',  $services);
+            $amenities = array_map(function ($value) {
+                return intval($value); // o (float)$value per convertire in numeri decimali
+            }, $tempAmenities);
+        }
+
+        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+            ->where('rooms_number', '>', $rooms)
+            ->where('beds_number', '>', $beds)
+            ->where('bathrooms_number', '>', $bath)
+            ->get();
+
+        $newApartments = [];
+
+        foreach ($apartments as $apartment) {
+            if ($services != '') {
                 // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
                 $apartmentAmenities = $apartment->services()->pluck('id')->toArray();
                 if (count(array_diff($amenities, $apartmentAmenities)) == 0) {
                     array_push($newApartments, $apartment);
                 }
+            } else {
+                array_push($newApartments, $apartment);
             }
         }
 

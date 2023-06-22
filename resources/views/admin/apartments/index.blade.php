@@ -29,9 +29,11 @@
                   {{-- slug debug --}}
                   <td>{{$apartment->slug}}</td>
                   {{-- slug debug --}}
-                  <td class="d-flex align-items-center">
-                    <div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div>
-                    <div class="px-2">{{$apartment->isVisible == 1 ? ' Listed' : ' Unlisted'}}</div>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="check {{$apartment->isVisible == 1 ? 'bg-success' : 'bg-danger'}}"></div>
+                      <div class="px-2">{{$apartment->isVisible == 1 ? ' Listed' : ' Unlisted'}}</div>
+                    </div>
                   </td>
                   <td>{{$apartment->rooms_number}}</td>
                   <td>{{$apartment->beds_number}}</td>
