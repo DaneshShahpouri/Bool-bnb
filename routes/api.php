@@ -30,7 +30,7 @@ Route::get('apartments/getapartment/{lat}/{lon}/{radius}/{rooms?}/{beds?}/{bath?
 
 // Route::get('apartments/distance/{lat1}/{lon2}/{lat2}/{lon2}', [ApartmentController::class, 'distance']);
 
-Route::get('apartments/{citta}', [ApartmentController::class, 'address']);
+Route::get('apartments/{name?}', [ApartmentController::class, 'name']);
 
 Route::get('services', [ApartmentController::class, 'services']);
 

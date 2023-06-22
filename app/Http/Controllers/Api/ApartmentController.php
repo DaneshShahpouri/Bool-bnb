@@ -26,6 +26,7 @@ class ApartmentController extends Controller
         ]);
     }
 
+    //obsoleta
     public function search(Request $request)
     {
         $client = new \GuzzleHttp\Client();
@@ -93,21 +94,27 @@ class ApartmentController extends Controller
         }
     }
 
-    public function address($citta)
+    public function name($name)
     {
 
-        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->where('address', 'LIKE', '%' . $citta . '%')->get();
+        if ($name) {
+            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->where('name', 'LIKE', '%' . $name . '%')->get();
 
 
-        if ($citta) {
+            return response()->json([
+                'success' => true,
+                'results' => $apartments
+            ]);
+        } else {
+            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->get();
+
+
             return response()->json([
                 'success' => true,
                 'results' => $apartments
             ]);
         }
     }
-
-
 
     public function distance($lat1, $lon1, $lat2, $lon2)
     {
