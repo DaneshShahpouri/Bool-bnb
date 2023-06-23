@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('apartments', [ApartmentController::class, 'index']);
 
 //Route::get('getuser', [UserController::class, 'getUser']);
-Route::middleware('auth:api')->get('/user', [UserController::class, 'getUser']);
+//Route::middleware('auth:api')->get('/user', [UserController::class, 'getUser']);
 
 Route::get('apartmentempty/{rooms?}/{beds?}/{bath?}/{services?}', [ApartmentController::class, 'getApartmentByCityEmptyName']);
 Route::get('apartments/getapartment/{lat}/{lon}/{radius}/{rooms?}/{beds?}/{bath?}/{services?}', [ApartmentController::class, 'getApartmentByCity']);

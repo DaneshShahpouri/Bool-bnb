@@ -1,7 +1,9 @@
+
 import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
+delete axios.defaults.headers.common['X-Requested-With'];
 import.meta.glob([
     '../img/**'
 ])
@@ -45,22 +47,21 @@ if (document.getElementById('password-confirm')) {
 //Chiamata Axios per suggerimento indirizzi
 //-------------------------------------------------------
 let input = document.getElementById('addressCreate');
+let suggest = document.getElementById('create-suggest');
+//suggest.innerHTML = "<li class='_first-li'>" + 'Forse cercavi:' + "</li>"
 
-input.addEventListener('change', () => {
+input.addEventListener('input', () => {
     advicedCity()
 })
 
 
 function advicedCity() {
     let searchInput = input.value;
-
     let arraySuggestion = []
     if (searchInput.length > 3) {
         axios.get('https://api.tomtom.com/search/2/geocode/' + encodeURIComponent(searchInput) + '.json?countrySet=IT&key=9LYFxo01VqErOpYtelpWGSFzw2eB6a4r').then(res => {
             arraySuggestion = []
-
-            //console.log('chiamata')
-
+            //console.log(res.data.results[0])
             let firstCountry = res.data.results[0]
             let secondCountry = res.data.results[1]
             let thirdCountry = res.data.results[2]
@@ -75,9 +76,15 @@ function advicedCity() {
                 arraySuggestion.push(thirdCountry)
             }
 
+            console.log(arraySuggestion)
+            suggest.innerHTML = ''
+            suggest.innerHTML = "<li class='_first-li'>" + 'Forse cercavi:' + "</li>"
+            arraySuggestion.forEach(element => {
+                suggest.innerHTML += "<li>" + element.address.freeformAddress + "</li>"
+            });
         })
     }
-    console.log(arraySuggestion)
 }
 //-------------------------------------------------------
 //Chiamata Axios per suggerimento indirizzi
+

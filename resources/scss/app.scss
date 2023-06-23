@@ -1,7 +1,45 @@
 @import "~bootstrap/scss/bootstrap";
 
+
 //Assets
 //--------------------------------------------
+//suggest in create and edit
+._address-wrapper {
+    position: relative;
+
+    #create-suggest {
+        position: absolute;
+        top: 70px;
+        left: 0px;
+        width: 400px;
+        background: rgb(255 255 255);
+        border: 1px solid lightgray;
+        list-style: none;
+        overflow: hidden;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.219);
+
+        ._first-li {
+            cursor: auto;
+
+            &:hover {
+                background: white;
+                color: black;
+            }
+        }
+
+        li {
+            cursor: pointer;
+            padding: 0.5em;
+
+            &:hover {
+                background: rgb(255, 90, 95);
+                color: white;
+            }
+        }
+    }
+}
+
+//suggest in create and edit
 .btn-outline-primary:hover {
     color: white !important;
 }

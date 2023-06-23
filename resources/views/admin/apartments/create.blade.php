@@ -75,17 +75,16 @@
                 @enderror 
             </div>
 
-            {{-- address --}}
-            <div class="mb-3">
-                <label for="address" class="mb-2">Address*</label>
-                <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="addressCreate" placeholder="Enter apartment address" required minlength="7" maxlength="100" value='{{old('address')}}'>
-                @error('address')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                @enderror
-
-        
+           {{-- address --}}
+           <div class="mb-3 _address-wrapper">
+            <label for="address" class="mb-2">Address*</label>
+            <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="addressCreate" placeholder="Enter apartment address" required minlength="7" maxlength="100" value='{{old('address')}}'>
+            <ul id="create-suggest"></ul>
+            @error('address')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+            @enderror
             </div>
 
             {{-- rooms-number --}}
