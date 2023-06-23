@@ -56,9 +56,9 @@ class SponsorshipController extends Controller
     {
         // Sponsorship types mapping
         $sponsorshipTypes = [
-            '2.99' => ['name' => '24 hours sponsorship', 'duration' => 24],
-            '5.99' => ['name' => '72 hours sponsorship', 'duration' => 72],
-            '9.99' => ['name' => '144 hours sponsorship', 'duration' => 144],
+            '2.99' => ['name' => 'shot', 'duration' => 24],
+            '5.99' => ['name' => 'middle', 'duration' => 72],
+            '9.99' => ['name' => 'long', 'duration' => 144],
         ];
 
         // Find the apartment with the given slug

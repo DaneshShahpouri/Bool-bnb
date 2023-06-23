@@ -42,6 +42,7 @@
                     <div class="d-flex gap-3">
                       <a href="{{route ('admin.apartments.show' , $apartment->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
                       <a href="{{route ('admin.messages.single', $apartment->id)}}"><i class="fa-regular fa-envelope"></i></i></a>
+                      <a href="{{route('admin.sponsorships.show', $apartment->slug)}}"><i class="fa-solid fa-sack-dollar"></i></i></i></a>
                     </div>
                   </td>
                 </tr>
