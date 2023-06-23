@@ -29,6 +29,7 @@ $routeName = Route::currentRouteName();
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Your Apartments</a>
+                    <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}">Sponsor Apt</a>
                     <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a>
                 </div>
             </div>
@@ -59,6 +60,14 @@ $routeName = Route::currentRouteName();
                 <h3 class="mb-4">Photo</h3>
                 <div class="img_container"><img src="{{asset('storage/' . $apartment->cover_image)}}" alt="Photo"></div>
             </div>
+
+            {{-- ----------------------da inserire all' interno della foto --}}
+            @if($activeSponsorships > 0)
+            <div class="sponsored">
+                This apartment is currently sponsored.
+            </div>
+            @endif
+            {{-- ----------------------da inserire all' interno della foto --}}
 
             {{-- Apartment - Details --}}
             <div class="listing pt-5">

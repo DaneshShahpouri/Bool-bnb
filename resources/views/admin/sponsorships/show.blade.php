@@ -2,12 +2,12 @@
 
 @section('content')
 
+
 <div class="sponsorship-container">
     <h2>Choose a sponsorship package</h2>
 
-    <form method="post" id="payment-form" action="{{ route('admin.sponsorships.update', $sponsorship->id) }}">
+    <form method="post" id="payment-form" action="{{ route('admin.sponsorships.store', $apartment->slug) }}">
         @csrf
-        @method('PUT')
         
         <div class="sponsorship-package package1">
             <input type="radio" id="package1" name="amount" value="2.99" required>

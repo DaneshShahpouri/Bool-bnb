@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Service;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,6 @@ class ApartmentController extends Controller
     public function create()
     {
         $services = Service::all();
-
 
         return view('admin.apartments.create', compact('services'));
     }
@@ -93,25 +93,12 @@ class ApartmentController extends Controller
             'verify' => false,
         ]);
 
-        $arraytemp = [];
         if ($res->getStatusCode() == 200) {
             $data = json_decode($res->getBody(), true);
-            // dd($data['results'][0]['matchConfidence']['score']);
             if (count($data['results']) > 0) {
-
-                foreach ($data['results'] as $element) {
-                    if ($element['matchConfidence']['score'] == 1) {
-                        array_push($arraytemp, $element);
-                    }
-                }
-
-                if (count($arraytemp) > 0) {
-                    $position = $data['results'][0]['position'];
-                    $newApartment->latitude = $position['lat'];
-                    $newApartment->longitude = $position['lon'];
-                } else {
-                    return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
-                }
+                $position = $data['results'][0]['position'];
+                $newApartment->latitude = $position['lat'];
+                $newApartment->longitude = $position['lon'];
             } else {
                 return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
             }
@@ -146,14 +133,23 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    // public function show(Apartment $apartment)
+    // {
+
+
+
+    //     return view('admin.apartments.show', compact('apartment'));
+    // }
+
+    public function show($slug)
     {
+        $apartment = Apartment::where('slug', $slug)->first();
 
+        $duration = 24; // Define a fixed duration in hours
+        $activeSponsorships = $apartment->sponsorships()->where('start_date', '>=', Carbon::now()->subHours($duration))->count();
 
-
-        return view('admin.apartments.show', compact('apartment'));
+        return view('admin.apartments.show', compact('apartment', 'activeSponsorships'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -195,25 +191,12 @@ class ApartmentController extends Controller
                 'verify' => false,
             ]);
 
-            $arraytemp = [];
             if ($res->getStatusCode() == 200) {
                 $data = json_decode($res->getBody(), true);
-                // dd($data['results'][0]['matchConfidence']['score']);
                 if (count($data['results']) > 0) {
-
-                    foreach ($data['results'] as $element) {
-                        if ($element['matchConfidence']['score'] == 1) {
-                            array_push($arraytemp, $element);
-                        }
-                    }
-
-                    if (count($arraytemp) > 0) {
-                        $position = $data['results'][0]['position'];
-                        $apartment->latitude = $position['lat'];
-                        $apartment->longitude = $position['lon'];
-                    } else {
-                        return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
-                    }
+                    $position = $data['results'][0]['position'];
+                    $apartment->latitude = $position['lat'];
+                    $apartment->longitude = $position['lon'];
                 } else {
                     return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
                 }
@@ -371,41 +354,5 @@ class ApartmentController extends Controller
         )->validate();
 
         return $validator;
-    }
-
-    public function suggestAddress(Request $request){
-        $formData = $request;
-        $client = new Client();
-        $res = $client->get('https://api.tomtom.com/search/2/geocode/' . urlencode($formData['address']) . '.json', [
-            'query' => [
-                'key' => 'qjmqFCtzdoYUrau6McZvVU6fLcLPEuAA',
-            ],
-
-            'verify' => false,
-        ]);
-
-        $arraytemp = [];
-        if ($res->getStatusCode() == 200) {
-            $data = json_decode($res->getBody(), true);
-            // dd($data['results'][0]['matchConfidence']['score']);
-            if (count($data['results']) > 0) {
-
-                for ($i = 1; $i <= 6; $i++) {
-                    array_push($arraytemp,$data['results'][$i] );
-                }
-               
-
-                return $arraytemp;
-
-                
-            } else {
-                return back()->withErrors(['address' => 'Unable to find coordinates for this address.']);
-            }
-        } else {
-
-            return back()->withErrors(['address' => 'Error fetching coordinates.']);
-        }
-
-
     }
 }
