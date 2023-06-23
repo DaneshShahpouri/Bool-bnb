@@ -15,7 +15,9 @@ class ApartmentController extends Controller
 
     public function index()
     {
-        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->get();
+        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+            ->where('isVisible', '=', 1)
+            ->get();
 
         // $user = Auth::id();
 
@@ -98,7 +100,10 @@ class ApartmentController extends Controller
     {
 
         if ($name) {
-            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->where('name', 'LIKE', '%' . $name . '%')->get();
+            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+                ->where('name', 'LIKE', '%' . $name . '%')
+                ->where('isVisible', '=', 1)
+                ->get();
 
 
             return response()->json([
@@ -106,7 +111,9 @@ class ApartmentController extends Controller
                 'results' => $apartments
             ]);
         } else {
-            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')->get();
+            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+                ->where('isVisible', '=', 1)
+                ->get();
 
 
             return response()->json([
@@ -165,6 +172,7 @@ class ApartmentController extends Controller
             ->where('rooms_number', '>', $rooms)
             ->where('beds_number', '>', $beds)
             ->where('bathrooms_number', '>', $bath)
+            ->where('isVisible', '=', 1)
             ->get();
 
         $newApartments = [];
@@ -215,6 +223,7 @@ class ApartmentController extends Controller
             ->where('rooms_number', '>', $rooms)
             ->where('beds_number', '>', $beds)
             ->where('bathrooms_number', '>', $bath)
+            ->where('isVisible', '=', 1)
             ->get();
 
         $newApartments = [];

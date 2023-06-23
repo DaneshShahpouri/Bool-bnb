@@ -1,3 +1,4 @@
+
 @extends('layouts/admin')
 
 @section('content')
@@ -77,12 +78,14 @@
             {{-- address --}}
             <div class="mb-3">
                 <label for="address" class="mb-2">Address*</label>
-                <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="address" placeholder="Enter apartment address" required minlength="7" maxlength="100" value='{{old('address')}}'>
+                <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="addressCreate" placeholder="Enter apartment address" required minlength="7" maxlength="100" value='{{old('address')}}'>
                 @error('address')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>
                 @enderror
+
+        
             </div>
 
             {{-- rooms-number --}}
@@ -135,7 +138,9 @@
 
     </div>
 
+    
     <script type="text/javascript">
+    
         function validateServices() {
             let services = document.querySelectorAll('input[type="checkbox"][class="services"]');
             let isChecked = Array.from(services).some(checkbox => checkbox.checked);
@@ -149,7 +154,8 @@
     
             return true;
         }
-
+        
+      
         document.getElementById('create-form').addEventListener('submit', function( evt ) {
             let file = document.getElementById('cover_image_edit').files[0];
             let error = document.getElementById('error-image-create');

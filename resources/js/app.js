@@ -1,9 +1,11 @@
 import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
+import axios from 'axios';
 import.meta.glob([
     '../img/**'
 ])
+
 
 // CHECK PASSWORD CONFIRM
 //-------------------------------------------------------
@@ -37,3 +39,45 @@ if (document.getElementById('password-confirm')) {
 }
 //-------------------------------------------------------
 // /CHECK PASSWORD CONFIRM
+
+
+
+//Chiamata Axios per suggerimento indirizzi
+//-------------------------------------------------------
+let input = document.getElementById('addressCreate');
+
+input.addEventListener('change', () => {
+    advicedCity()
+})
+
+
+function advicedCity() {
+    let searchInput = input.value;
+
+    let arraySuggestion = []
+    if (searchInput.length > 3) {
+        axios.get('https://api.tomtom.com/search/2/geocode/' + encodeURIComponent(searchInput) + '.json?countrySet=IT&key=9LYFxo01VqErOpYtelpWGSFzw2eB6a4r').then(res => {
+            arraySuggestion = []
+
+            //console.log('chiamata')
+
+            let firstCountry = res.data.results[0]
+            let secondCountry = res.data.results[1]
+            let thirdCountry = res.data.results[2]
+
+            if (firstCountry != undefined) {
+                arraySuggestion.push(firstCountry)
+            }
+            if (secondCountry != undefined && secondCountry != firstCountry) {
+                arraySuggestion.push(secondCountry)
+            }
+            if (thirdCountry != undefined && thirdCountry != firstCountry && thirdCountry != secondCountry) {
+                arraySuggestion.push(thirdCountry)
+            }
+
+        })
+    }
+    console.log(arraySuggestion)
+}
+//-------------------------------------------------------
+//Chiamata Axios per suggerimento indirizzi
