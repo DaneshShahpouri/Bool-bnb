@@ -7,16 +7,18 @@
 ._address-wrapper {
     position: relative;
 
+    #edit-suggest,
     #create-suggest {
         position: absolute;
         top: 70px;
         left: 0px;
         width: 400px;
         background: rgb(255 255 255);
-        border: 1px solid lightgray;
+        //border: 1px solid lightgray;
         list-style: none;
         overflow: hidden;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.219);
+
 
         ._first-li {
             cursor: auto;
@@ -31,15 +33,25 @@
             cursor: pointer;
             padding: 0.5em;
 
+            ._location-icon {
+                margin-right: .5em;
+                font-size: .8em;
+                color: rgb(180, 180, 180);
+            }
+
             &:hover {
                 background: rgb(255, 90, 95);
                 color: white;
+
+                ._location-icon {
+                    color: rgb(255, 255, 255);
+                }
             }
         }
     }
 }
 
-//suggest in create and edit
+// fine suggest in create and edit
 .btn-outline-primary:hover {
     color: white !important;
 }
@@ -54,6 +66,8 @@ ul {
     border: 1px solid rgb(96, 96, 96);
     border-radius: 50%;
 }
+
+
 
 //Partials
 //--------------------------------------------

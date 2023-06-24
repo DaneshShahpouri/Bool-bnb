@@ -9,8 +9,11 @@
 
         <h1 class="my-4">Add a new apartment</h1>
         
-        <form action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServices()" id="create-form">
+        <form autocomplete="off" action="{{route ('admin.apartments.store')}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServices()" id="create-form">
             @csrf
+
+            {{-- input per evitare autocomplete di chrome --}}
+            <input autocomplete="false" name="hidden" type="text" style="display:none;">
 
             {{-- name --}}
             <div class="mb-3">
@@ -79,6 +82,7 @@
            <div class="mb-3 _address-wrapper">
             <label for="address" class="mb-2">Address*</label>
             <input class="form-control my-label @error('address') is-invalid @enderror" placeholder="es: via prova, 00 city" type="text" name="address" id="addressCreate" placeholder="Enter apartment address" required minlength="7" maxlength="100" value='{{old('address')}}'>
+            <div id="messageAddress" class="text-danger"></div>
             <ul id="create-suggest"></ul>
             @error('address')
                 <div class="invalid-feedback">
@@ -139,16 +143,22 @@
 
     
     <script type="text/javascript">
+    let isValidAddress = false;
+    let messageAddress = document.getElementById('messageAddress')
     
         function validateServices() {
             let services = document.querySelectorAll('input[type="checkbox"][class="services"]');
             let isChecked = Array.from(services).some(checkbox => checkbox.checked);
-            let message = document.getElementById('messageServices')
-            message.innerText='';
+            let messageServices = document.getElementById('messageServices')
+            messageServices.innerText='';
+            messageAddress.innerText='';
 
             if (!isChecked) {
-                message.innerText='Please select at least one service.';
+                messageServices.innerText='Please select at least one service.';
                 return false;
+            }else if(!isValidAddress){
+                messageAddress.innerText='Please select a valid address.';
+                return false
             }
     
             return true;

@@ -10,9 +10,12 @@
 
         <h1 class="my-4">Edit Apartment : <em>{{$apartment->name}}</em></h1>
 
-        <form action="{{route ('admin.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data" onsubmit="return validateServicesUpdate()" id="edit-form">
+        <form action="{{route ('admin.apartments.update', $apartment)}}" autocomplete="off" method="POST" enctype="multipart/form-data" onsubmit="return validateServicesUpdate()" id="edit-form">
             @csrf
             @method('PUT')
+
+              {{-- input per evitare autocomplete di chrome --}}
+              <input autocomplete="false" name="hidden" type="text" style="display:none;">
 
             {{-- name --}}
             <div class="mb-3">
@@ -85,9 +88,11 @@
             </div>
 
             {{-- address --}}
-            <div class="mb-3">
+            <div class="mb-3 _address-wrapper">
                 <label for="address" class="mb-2">Address*</label>
-                <input class="form-control my-label @error('address') is-invalid @enderror" type="text" name="address" id="address" placeholder="Enter apartment address" value="{{old('address') ?? $apartment->address}}" required minlength="7" maxlength="100">
+                <input class="form-control my-label @error('address') is-invalid @enderror" type="text" name="address" id="addressCreateEdit" placeholder="Enter apartment address" value="{{old('address') ?? $apartment->address}}" required minlength="7" maxlength="100">
+                <div id="messageAddressEdit" class="text-danger"></div>
+                <ul id="edit-suggest"></ul>
                 @error('address')
                     <div class="invalid-feedback">
                         {{$message}}
@@ -158,17 +163,23 @@
 </main>
     
 <script type="text/javascript">
+  let messageAddressEdit = document.getElementById('messageAddressEdit')
+  let isValidAddressEdit = false;
     function validateServicesUpdate() {
         let services = document.querySelectorAll('input[type="checkbox"][class="update-services"]');
         let isChecked = Array.from(services).some(checkbox => checkbox.checked);
         let message = document.getElementById('messageServicesUpdate')
         message.innerText='';
+        messageAddressEdit.innerText='';
 
 
         if (!isChecked) {
             message.innerText='Please select at least one service.';
             return false;
-        }
+        }else if(!isValidAddressEdit){
+                messageAddressEdit.innerText='Please select a valid address.';
+                return false
+            }
 
         return true;
     }
@@ -178,7 +189,7 @@
     let error = document.getElementById('error-image');
     error.innerText=''
     // var regex = /^(image/)(gif|(x-)?png|p?jpeg)$/i;
-    if( file.size >= (1048576 * 2)) { // 1MB
+    if( file?.size >= (1048576 * 2)) { // 1MB
         error.innerText='File size must not exceed 2Mb'
         evt.preventDefault();
     } 
