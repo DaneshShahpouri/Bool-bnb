@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" src="{{Vite::asset('resources/img/icon.png')}}">
+    <link rel="shortcut icon"  href="{{ asset('img/icon.png') }}">
     {{-- <link rel="icon" type="image/svg+xml" href="img/icon.png" /> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
