@@ -39,7 +39,7 @@ class MessageController extends Controller
         $apartmentIds = $apartments->pluck('id')->toArray();
 
         //prendere solo i messaggi che hanno un id appartamento nell'array
-        $messages = Message::whereIn('apartment_id', $apartmentIds)->get();
+        $messages = Message::whereIn('apartment_id', $apartmentIds)->orderBy('created_at', 'desc')->get();
 
         return view('admin.messages.index', compact('messages'));
     }
@@ -53,7 +53,7 @@ class MessageController extends Controller
             abort(404);  // Not Found
         }
 
-        $messages = Message::where('apartment_id', $apartmentId)->get();
+        $messages = Message::where('apartment_id', $apartmentId)->orderBy('created_at', 'desc')->get();
 
         return view('admin.messages.single', compact('messages'));
     }
