@@ -25,7 +25,11 @@
               @if ($apartment->user_id == Auth::id())
                 <tr>
                   <td class="align-middle">
+                    <div class="d-flex align-items-center">
                     <img src="{{ asset('storage/' . $apartment->cover_image) }}" alt="Apartment Image" style="width: 80px; height: 50px;">
+                    @if($apartment->sponsorships->count() > 0)
+                      <i class="fa-solid fa-star text-warning px-2"></i>
+                    @endif
                   </td>
                   <td class="align-middle d-none d-md-table-cell">{{strlen($apartment->name) > 25 ? substr($apartment->name, 0, 25) . '...' : $apartment->name}}</td>
                   {{-- <td>{{strlen($apartment->slug) > 40 ? substr($apartment->slug, 0, 40) . '...' : $apartment->slug}}</td> --}}
