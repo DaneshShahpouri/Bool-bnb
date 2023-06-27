@@ -231,6 +231,11 @@ ul {
                 border-top-right-radius: 10px;
             }
         }
+        ._border-radius {
+            @media (max-width: 575.98px) {
+                border-top-right-radius: 10px;
+            }
+        }
     }
 
     tbody {
@@ -244,5 +249,20 @@ ul {
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
+    }
+
+    thead {
+        th {
+            background-color: #ff5a5f;
+            color: white;
+
+            &:first-of-type {
+                border-top-left-radius: 10px;
+            }
+
+            &:last-of-type {
+                border-top-right-radius: 10px;
+            }
+        }
     }
 }

@@ -5,12 +5,12 @@
 <div id="messages_index">
 
     <div class="container table-responsive">
-        <table class="table table-light table-hover w-75 m-auto mt-5">
+        <table class="table table-light table-hover m-auto mt-5">
             <thead>
                 <th><i class="fa-solid fa-building"></i> Apartment</th>
                 <th class="d-none d-md-table-cell"><i class="fa-solid fa-clock"></i> Date</th>
                 <th class="d-none d-md-table-cell"><i class="fa-solid fa-user"></i> Username</th>
-                <th><i class="fa-solid fa-thumbtack"></i> Content</th>
+                <th class="_border-radius"><i class="fa-solid fa-thumbtack"></i> Content</th>
                 <th class="d-none d-sm-table-cell"><i class="fa-solid fa-envelope"></i> Email</th>
             </thead>
     

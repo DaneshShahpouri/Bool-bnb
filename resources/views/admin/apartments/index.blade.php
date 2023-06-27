@@ -4,7 +4,7 @@
 
 <main id="apartment_index">
     <div class="container">
-      <table class="table  table-striped my-3">
+      <table class="table  table-striped mt-5">
           {{-- Table - head --}}
             <thead>
               <tr>
@@ -12,9 +12,9 @@
                 <th scope="col" class="d-none d-md-table-cell">Listing</th>
                 {{-- <th scope="col">Slug</th> --}}
                 <th scope="col">Status</th>
-                <th scope="col" class="d-none d-md-table-cell">Rooms</th>
-                <th scope="col" class="d-none d-md-table-cell">Beds</th>
-                <th scope="col" class="d-none d-md-table-cell">Bathrooms</th>
+                <th scope="col" class="d-none d-lg-table-cell">Rooms</th>
+                <th scope="col" class="d-none d-lg-table-cell">Beds</th>
+                <th scope="col" class="d-none d-lg-table-cell">Bathrooms</th>
                 <th scope="col" class="d-none d-sm-table-cell">Address</th>
                 <th scope="col">Details</th>
               </tr>
@@ -35,9 +35,9 @@
                       <div class="px-2">{{$apartment->isVisible == 1 ? ' Listed' : ' Unlisted'}}</div>
                     </div>
                   </td>
-                  <td class="align-middle d-none d-md-table-cell">{{$apartment->rooms_number}}</td>
-                  <td class="align-middle d-none d-md-table-cell">{{$apartment->beds_number}}</td>
-                  <td class="align-middle d-none d-md-table-cell">{{$apartment->bathrooms_number}}</td>
+                  <td class="align-middle d-none d-lg-table-cell">{{$apartment->rooms_number}}</td>
+                  <td class="align-middle d-none d-lg-table-cell">{{$apartment->beds_number}}</td>
+                  <td class="align-middle d-none d-lg-table-cell">{{$apartment->bathrooms_number}}</td>
                   <td class="align-middle d-none d-sm-table-cell">{{strlen($apartment->address) > 40 ? substr($apartment->address, 0, 40) . '...' : $apartment->address}}</td>
                   <td class="align-middle">
                     <div class="d-flex gap-3">
