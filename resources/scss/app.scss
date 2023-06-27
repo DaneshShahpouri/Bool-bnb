@@ -32,6 +32,7 @@
         border-color: #c34a4e;
     }
 }
+
 //--------------------------------------------
 //suggest in create and edit
 ._address-wrapper {
@@ -218,10 +219,18 @@ ul {
 // MESSAGGI
 
 #messages_index {
+
+    .card-header {
+        background-color: #ff5a5f;
+        color: white;
+        font-weight: 500;
+    }
+
     thead {
         th {
             background-color: #ff5a5f;
             color: white;
+            font-weight: 500;
 
             &:first-of-type {
                 border-top-left-radius: 10px;
@@ -231,6 +240,7 @@ ul {
                 border-top-right-radius: 10px;
             }
         }
+
         ._border-radius {
             @media (max-width: 575.98px) {
                 border-top-right-radius: 10px;
@@ -246,6 +256,7 @@ ul {
 // INDEX APPARTAMENTI
 
 #apartment_index {
+
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
