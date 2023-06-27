@@ -18,9 +18,9 @@ class MessageController extends Controller
         Validator::make($formData, [
 
             'apartment_id' => 'required',
-            'username' => 'required|max:200|min:3',
-            'content' => 'required|max:600',
-            'email' => 'required',
+            'username' => 'required|max:100|min:3',
+            'content' => 'required|max:300|min:5',
+            'email' => 'required|max:100|min:5',
 
         ], [
             'username.required' => 'Please enter a name',
@@ -30,6 +30,8 @@ class MessageController extends Controller
             'content.max' => 'Content must be shorter than :max characters',
             'content.min' => 'Content must be longer than :min characters',
             'email.required' => 'Please enter a email',
+            'email.max' => 'Email must be shorter than :max characters',
+            'email.min' => 'Email must be longer than :min characters',
 
         ])->validate();
 
