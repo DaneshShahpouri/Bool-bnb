@@ -137,7 +137,7 @@ $routeName = Route::currentRouteName();
             {{-- Delete - button --}}
             <div class="d-flex gap-3 pb-5">
                 <button class="btn btn-primary "><a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="text-white text-decoration-none">Edit Apartment</a></button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     DELETE
                 </button>
     

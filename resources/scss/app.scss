@@ -1,6 +1,37 @@
 @import "~bootstrap/scss/bootstrap";
 
 //Assets
+
+.btn-outline-primary {
+    color: #ff5a5f;
+    border-color: #ff5a5f;
+
+    &:hover {
+        background-color: #ff5a5f;
+        border-color: #ff5a5f;
+        color: white;
+    }
+
+    &:active {
+        background-color: #ff5a5f !important;
+        border-color: #ff5a5f !important;
+    }
+
+    &:focus-visible {
+        background-color: #ff5a5f !important;
+        border-color: #ff5a5f !important;
+    }
+}
+
+.btn-primary {
+    background-color: #ff5a5f;
+    border-color: #ff5a5f;
+
+    &:hover {
+        background-color: #c34a4e;
+        border-color: #c34a4e;
+    }
+}
 //--------------------------------------------
 //suggest in create and edit
 ._address-wrapper {
@@ -200,5 +231,18 @@ ul {
                 border-top-right-radius: 10px;
             }
         }
+    }
+
+    tbody {
+        cursor: pointer;
+    }
+}
+
+// INDEX APPARTAMENTI
+
+#apartment_index {
+    .fa-solid,
+    .fa-regular {
+        color: #ff5a5f;
     }
 }

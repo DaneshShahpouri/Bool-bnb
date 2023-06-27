@@ -9,14 +9,14 @@
             <thead>
               <tr>
                 <th scope="col">Image</th>
-                <th scope="col">Listing</th>
+                <th scope="col" class="d-none d-md-table-cell">Listing</th>
                 {{-- <th scope="col">Slug</th> --}}
                 <th scope="col">Status</th>
-                <th scope="col">Rooms</th>
-                <th scope="col">Beds</th>
-                <th scope="col">Bathrooms</th>
-                <th scope="col">Address</th>
-                <th scope="col">Show Details</th>
+                <th scope="col" class="d-none d-md-table-cell">Rooms</th>
+                <th scope="col" class="d-none d-md-table-cell">Beds</th>
+                <th scope="col" class="d-none d-md-table-cell">Bathrooms</th>
+                <th scope="col" class="d-none d-sm-table-cell">Address</th>
+                <th scope="col">Details</th>
               </tr>
             </thead>
           {{-- Table - body --}}
@@ -24,10 +24,10 @@
               @foreach ($apartments as $apartment)
               @if ($apartment->user_id == Auth::id())
                 <tr>
-                  <td>
+                  <td class="align-middle">
                     <img src="{{ asset('storage/' . $apartment->cover_image) }}" alt="Apartment Image" style="width: 80px; height: 50px;">
                   </td>
-                  <td class="align-middle">{{strlen($apartment->name) > 25 ? substr($apartment->name, 0, 25) . '...' : $apartment->name}}</td>
+                  <td class="align-middle d-none d-md-table-cell">{{strlen($apartment->name) > 25 ? substr($apartment->name, 0, 25) . '...' : $apartment->name}}</td>
                   {{-- <td>{{strlen($apartment->slug) > 40 ? substr($apartment->slug, 0, 40) . '...' : $apartment->slug}}</td> --}}
                   <td class="align-middle">
                     <div class="d-flex align-items-center">
@@ -35,10 +35,10 @@
                       <div class="px-2">{{$apartment->isVisible == 1 ? ' Listed' : ' Unlisted'}}</div>
                     </div>
                   </td>
-                  <td class="align-middle">{{$apartment->rooms_number}}</td>
-                  <td class="align-middle">{{$apartment->beds_number}}</td>
-                  <td class="align-middle">{{$apartment->bathrooms_number}}</td>
-                  <td class="align-middle">{{strlen($apartment->address) > 40 ? substr($apartment->address, 0, 40) . '...' : $apartment->address}}</td>
+                  <td class="align-middle d-none d-md-table-cell">{{$apartment->rooms_number}}</td>
+                  <td class="align-middle d-none d-md-table-cell">{{$apartment->beds_number}}</td>
+                  <td class="align-middle d-none d-md-table-cell">{{$apartment->bathrooms_number}}</td>
+                  <td class="align-middle d-none d-sm-table-cell">{{strlen($apartment->address) > 40 ? substr($apartment->address, 0, 40) . '...' : $apartment->address}}</td>
                   <td class="align-middle">
                     <div class="d-flex gap-3">
                       <a href="{{route ('admin.apartments.show' , $apartment->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
