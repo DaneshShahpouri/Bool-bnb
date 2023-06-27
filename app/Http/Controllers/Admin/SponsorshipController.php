@@ -90,7 +90,7 @@ class SponsorshipController extends Controller
 
             // Attach the sponsorship to the apartment with the start date
             //$apartment->sponsorships()->attach($sponsorship->id, ['duration' => $sponsorship->duration]);
-            $apartment->sponsorships()->attach($sponsorship->id, ['start_date' => \Carbon\Carbon::now(), 'duration' => $sponsorship->duration]);
+            $apartment->sponsorships()->attach($sponsorship->id, ['start_date' => \Carbon\Carbon::now()]);
 
             return redirect()->route('admin.apartments.show', $apartment->slug)->with('success_message', 'Transaction successful. The sponsorship is now active.');
             // return redirect()->route('admin.sponsorships.show', $apartment->slug)->with('success_message', 'Transaction successful. The sponsorship is now active.');
