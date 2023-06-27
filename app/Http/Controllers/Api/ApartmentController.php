@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,15 +16,52 @@ class ApartmentController extends Controller
 
     public function index()
     {
-        $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+        // $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+        //     ->where('isVisible', '=', 1)
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
+
+        // $user = Auth::id();
+
+        $sponsorships = Sponsorship::all();
+        $apartments = [];
+        $currentDateTime = \Carbon\Carbon::now();
+        $sponsoredApartments = Apartment::with(['user', 'services', 'views', 'messages', 'sponsorships' => function ($query) use ($currentDateTime) {
+            $query->where('start_date', '<=', $currentDateTime);
+        }])
             ->where('isVisible', '=', 1)
             ->get();
 
-        // $user = Auth::id();
+
+        foreach ($sponsoredApartments as $apartment) {
+            if (count($apartment->sponsorships) > 0) {
+                //$startDate = $sponsorships->pivot->start_date;
+
+                if ($currentDateTime->subHours($apartment->sponsorships[0]->duration) <= $apartment->sponsorships[0]->pivot['start_date']) {
+                    array_push($apartments, $apartment);
+                }
+            }
+        }
+
+
+        //appartamenti non sponsorizzati
+
+        $tempApartments = Apartment::with(['user', 'services', 'views', 'messages', 'sponsorships'])
+            ->where('isVisible', '=', 1)->get();
+
+        foreach ($tempApartments as $apartmentTemp) {
+            if (count($apartmentTemp->sponsorships) == 0) {
+                array_push($apartments, $apartmentTemp);
+            }
+        };
+
+
 
         return response()->json([
             'success' => true,
             'results' => $apartments,
+            'sponsor' => $sponsorships
+
             // 'user'=> $user,
         ]);
     }
@@ -101,7 +139,9 @@ class ApartmentController extends Controller
 
         if ($name) {
             $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
-                ->where('name', 'LIKE', '%' . $name . '%')
+                ->where('address', 'LIKE', '%' . $name . '%')
+                ->orWhere('name', 'LIKE', '%' . $name . '%')
+                ->orderBy('created_at', 'desc')
                 ->where('isVisible', '=', 1)
                 ->get();
 
@@ -113,6 +153,7 @@ class ApartmentController extends Controller
         } else {
             $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
                 ->where('isVisible', '=', 1)
+                ->orderBy('created_at', 'desc')
                 ->get();
 
 
@@ -173,6 +214,7 @@ class ApartmentController extends Controller
             ->where('beds_number', '>', $beds)
             ->where('bathrooms_number', '>', $bath)
             ->where('isVisible', '=', 1)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $newApartments = [];

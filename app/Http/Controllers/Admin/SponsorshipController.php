@@ -56,7 +56,7 @@ class SponsorshipController extends Controller
     {
         // Sponsorship types mapping
         $sponsorshipTypes = [
-            '2.99' => ['name' => 'shot', 'duration' => 24],
+            '2.99' => ['name' => 'short', 'duration' => 24],
             '5.99' => ['name' => 'middle', 'duration' => 72],
             '9.99' => ['name' => 'long', 'duration' => 144],
         ];
@@ -89,7 +89,8 @@ class SponsorshipController extends Controller
             $sponsorship = Sponsorship::where('name', $sponsorshipData['name'])->first();
 
             // Attach the sponsorship to the apartment with the start date
-            $apartment->sponsorships()->attach($sponsorship->id, ['start_date' => \Carbon\Carbon::now()]);
+            //$apartment->sponsorships()->attach($sponsorship->id, ['duration' => $sponsorship->duration]);
+            $apartment->sponsorships()->attach($sponsorship->id, ['start_date' => \Carbon\Carbon::now(), 'duration' => $sponsorship->duration]);
 
             return redirect()->route('admin.apartments.show', $apartment->slug)->with('success_message', 'Transaction successful. The sponsorship is now active.');
             // return redirect()->route('admin.sponsorships.show', $apartment->slug)->with('success_message', 'Transaction successful. The sponsorship is now active.');

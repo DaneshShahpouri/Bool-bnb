@@ -16,7 +16,7 @@ class SponsorshipSeeder extends Seeder
     public function run()
     {
         $sponsorships = [
-            ['name' => 'shot', 'price' => 2.99, 'duration' => 24],
+            ['name' => 'short', 'price' => 2.99, 'duration' => 24],
             ['name' => 'middle', 'price' => 5.99, 'duration' => 72],
             ['name' => 'long', 'price' => 9.99, 'duration' => 144]
         ];

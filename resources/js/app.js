@@ -38,7 +38,7 @@ if (document.getElementById('password-confirm')) {
     }
     inputPassword.addEventListener('change', () => { checkPassword() })
     inputPasswordConfirm.addEventListener('change', () => { checkPassword() })
-   
+
 }
 //-------------------------------------------------------
 // /CHECK PASSWORD CONFIRM
@@ -51,6 +51,7 @@ let input = document.getElementById('addressCreate');
 let inputEdit = document.getElementById('addressCreateEdit');
 let suggest = document.getElementById('create-suggest');
 let suggestEdit = document.getElementById('edit-suggest');
+
 
 //suggest.innerHTML = "<li class='_first-li'>" + 'Forse cercavi:' + "</li>"
 
@@ -154,6 +155,7 @@ function advicedCity() {
                 })
 
 
+
                 if (res.data.results[0].matchConfidence.score < 1) {
                     isValidAddressEdit = false
                 } else {
@@ -166,6 +168,9 @@ function advicedCity() {
         }
     }
 }
+
+console.log('AppJs')
+console.log(isValidAddressEdit)
 //-------------------------------------------------------
 //Chiamata Axios per suggerimento indirizzi
 

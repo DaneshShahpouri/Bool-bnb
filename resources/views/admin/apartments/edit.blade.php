@@ -163,8 +163,9 @@
 </main>
     
 <script type="text/javascript">
+    let  isValidAddressEdit = true;
+    //console.log(isValidAddressEdit)
   let messageAddressEdit = document.getElementById('messageAddressEdit')
-  let isValidAddressEdit = false;
     function validateServicesUpdate() {
         let services = document.querySelectorAll('input[type="checkbox"][class="update-services"]');
         let isChecked = Array.from(services).some(checkbox => checkbox.checked);

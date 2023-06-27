@@ -14,7 +14,7 @@
     <tbody>
         @foreach ($messages as $message)  
         <tr>
-            <td>{{$message->apartment->name}}</td>
+            <td>{{$message->apartment_id != null ? $message->apartment->name : 'Cancelled'}}</td>
             <td>{{$message->created_at}}</td>
             <td>{{$message->username}}</td>
             <td>{{$message->content}}</td>
