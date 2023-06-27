@@ -1,6 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
 
-
 //Assets
 //--------------------------------------------
 //suggest in create and edit
@@ -19,7 +18,6 @@
         overflow: hidden;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.219);
 
-
         ._first-li {
             cursor: auto;
 
@@ -34,8 +32,8 @@
             padding: 0.5em;
 
             ._location-icon {
-                margin-right: .5em;
-                font-size: .8em;
+                margin-right: 0.5em;
+                font-size: 0.8em;
                 color: rgb(180, 180, 180);
             }
 
@@ -66,8 +64,6 @@ ul {
     border: 1px solid rgb(96, 96, 96);
     border-radius: 50%;
 }
-
-
 
 //Partials
 //--------------------------------------------
@@ -186,4 +182,23 @@ ul {
 
 .sponsorship-container #submit-button:hover {
     background-color: #0056b3;
+}
+
+// MESSAGGI
+
+#messages_index {
+    thead {
+        th {
+            background-color: #ff5a5f;
+            color: white;
+
+            &:first-of-type {
+                border-top-left-radius: 10px;
+            }
+
+            &:last-of-type {
+                border-top-right-radius: 10px;
+            }
+        }
+    }
 }
