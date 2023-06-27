@@ -30,37 +30,42 @@ class ApartmentController extends Controller
             $query->where('start_date', '<=', $currentDateTime);
         }])
             ->where('isVisible', '=', 1)
+            ->has('sponsorships')
+            ->orderBy('created_at', 'desc')
             ->get();
 
 
-        foreach ($sponsoredApartments as $apartment) {
-            if (count($apartment->sponsorships) > 0) {
-                //$startDate = $sponsorships->pivot->start_date;
+        // foreach ($sponsoredApartments as $apartment) {
+        //     if (count($apartment->sponsorships) > 0) {
+        //         //$startDate = $sponsorships->pivot->start_date;
 
-                if ($currentDateTime->subHours($apartment->sponsorships[0]->duration) <= $apartment->sponsorships[0]->pivot['start_date']) {
-                    array_push($apartments, $apartment);
-                }
-            }
-        }
+        //         if ($currentDateTime->subHours($apartment->sponsorships[0]->duration) <= $apartment->sponsorships[0]->pivot['start_date']) {
+        //             array_push($apartments, $apartment);
+        //         }
+        //     }
+        // }
 
 
         //appartamenti non sponsorizzati
 
-        $tempApartments = Apartment::with(['user', 'services', 'views', 'messages', 'sponsorships'])
-            ->where('isVisible', '=', 1)->get();
+        $apartments = Apartment::with(['user', 'services', 'views', 'messages', 'sponsorships'])
+            ->where('isVisible', '=', 1)
+            ->doesntHave('sponsorships')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        foreach ($tempApartments as $apartmentTemp) {
-            if (count($apartmentTemp->sponsorships) == 0) {
-                array_push($apartments, $apartmentTemp);
-            }
-        };
+        // foreach ($tempApartments as $apartmentTemp) {
+        //     if (count($apartmentTemp->sponsorships) == 0) {
+        //         array_push($apartments, $apartmentTemp);
+        //     }
+        // };
 
 
 
         return response()->json([
             'success' => true,
             'results' => $apartments,
-            'sponsor' => $sponsorships
+            'sponsorRes' => $sponsoredApartments
 
             // 'user'=> $user,
         ]);
@@ -136,14 +141,42 @@ class ApartmentController extends Controller
 
     public function name($name)
     {
-
+        $apartments = [];
         if ($name) {
-            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
-                ->where('address', 'LIKE', '%' . $name . '%')
-                ->orWhere('name', 'LIKE', '%' . $name . '%')
-                ->orderBy('created_at', 'desc')
+            $sponsoredapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
                 ->where('isVisible', '=', 1)
+                ->has('sponsorships')
+                ->where('address', 'LIKE', '%' . $name . '%')
+                ->where('isVisible', '=', 1)
+                ->has('sponsorships')
+                ->orderBy('created_at', 'desc')
+                ->orWhere('name', 'LIKE', '%' . $name . '%')
+                ->has('sponsorships')
+                ->where('isVisible', '=', 1)
+                ->has('sponsorships')
+                ->orderBy('created_at', 'desc')
                 ->get();
+
+            foreach ($sponsoredapartments as $apartment) {
+                array_push($apartments, $apartment);
+            }
+
+            $Unsponsoredapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+                ->where('isVisible', '=', 1)
+                ->where('address', 'LIKE', '%' . $name . '%')
+                ->doesntHave('sponsorships')
+                ->where('isVisible', '=', 1)
+                ->orderBy('created_at', 'desc')
+                ->orWhere('name', 'LIKE', '%' . $name . '%')
+                ->where('isVisible', '=', 1)
+                ->doesntHave('sponsorships')
+                ->where('isVisible', '=', 1)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($Unsponsoredapartments as $apartment) {
+                array_push($apartments, $apartment);
+            }
 
 
             return response()->json([
@@ -151,10 +184,25 @@ class ApartmentController extends Controller
                 'results' => $apartments
             ]);
         } else {
-            $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+            $sponsoredapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
                 ->where('isVisible', '=', 1)
+                ->has('sponsorships')
                 ->orderBy('created_at', 'desc')
                 ->get();
+
+            foreach ($sponsoredapartments as $apartment) {
+                array_push($apartments, $apartment);
+            }
+
+            $Unsponsoredapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+                ->where('isVisible', '=', 1)
+                ->has('sponsorships')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            foreach ($Unsponsoredapartments as $apartment) {
+                array_push($apartments, $apartment);
+            }
 
 
             return response()->json([
@@ -208,18 +256,32 @@ class ApartmentController extends Controller
             }, $tempAmenities);
         }
 
+        $newApartments = [];
 
         $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
             ->where('rooms_number', '>', $rooms)
             ->where('beds_number', '>', $beds)
             ->where('bathrooms_number', '>', $bath)
             ->where('isVisible', '=', 1)
+            ->has('sponsorships')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $newApartments = [];
 
+        $apartment_distance = [];
+        // Aggiungi il ciclo per calcolare la distanza
         foreach ($apartments as $apartment) {
+            $apartment->distance = $this->distance(floatval($apartment->latitude), floatval($apartment->longitude), floatval($lat), floatval($lon));
+            array_push($apartment_distance, $apartment);
+        }
+
+        // Ordina gli appartamenti in base alla distanza
+        usort($apartment_distance, function ($a, $b) {
+            return $a->distance - $b->distance;
+        });
+
+
+        foreach ($apartment_distance as $apartment) {
             if ($this->distance(floatval($apartment->latitude), floatval($apartment->longitude), floatval($lat), floatval($lon)) < intval($radius)) {
                 if ($services != '') {
                     // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
@@ -232,6 +294,42 @@ class ApartmentController extends Controller
                 }
             }
         }
+
+        $UnSponsorapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+            ->where('rooms_number', '>', $rooms)
+            ->where('beds_number', '>', $beds)
+            ->where('bathrooms_number', '>', $bath)
+            ->where('isVisible', '=', 1)
+            ->doesntHave('sponsorships')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $Unsoponsoreapartment_distance = [];
+        // Aggiungi il ciclo per calcolare la distanza
+        foreach ($UnSponsorapartments as $apartment) {
+            $apartment->distance = $this->distance(floatval($apartment->latitude), floatval($apartment->longitude), floatval($lat), floatval($lon));
+            array_push($Unsoponsoreapartment_distance, $apartment);
+        }
+
+        // Ordina gli appartamenti in base alla distanza
+        usort($Unsoponsoreapartment_distance, function ($a, $b) {
+            return $a->distance - $b->distance;
+        });
+
+        foreach ($Unsoponsoreapartment_distance as $apartment) {
+            if ($this->distance(floatval($apartment->latitude), floatval($apartment->longitude), floatval($lat), floatval($lon)) < intval($radius)) {
+                if ($services != '') {
+                    // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
+                    $apartmentAmenities = $apartment->services()->pluck('id')->toArray();
+                    if (count(array_diff($amenities, $apartmentAmenities)) == 0) {
+                        array_push($newApartments, $apartment);
+                    }
+                } else {
+                    array_push($newApartments, $apartment);
+                }
+            }
+        }
+
 
         return response()->json([
             'success' => true,
@@ -266,11 +364,34 @@ class ApartmentController extends Controller
             ->where('beds_number', '>', $beds)
             ->where('bathrooms_number', '>', $bath)
             ->where('isVisible', '=', 1)
+            ->has('sponsorships')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $newApartments = [];
 
         foreach ($apartments as $apartment) {
+            if ($services != '') {
+                // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
+                $apartmentAmenities = $apartment->services()->pluck('id')->toArray();
+                if (count(array_diff($amenities, $apartmentAmenities)) == 0) {
+                    array_push($newApartments, $apartment);
+                }
+            } else {
+                array_push($newApartments, $apartment);
+            }
+        }
+
+        $UnSponsorapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
+            ->where('rooms_number', '>', $rooms)
+            ->where('beds_number', '>', $beds)
+            ->where('bathrooms_number', '>', $bath)
+            ->where('isVisible', '=', 1)
+            ->doesntHave('sponsorships')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        foreach ($UnSponsorapartments as $apartment) {
             if ($services != '') {
                 // Controlla se gli amenities dell'appartamento corrispondono a tutti gli ID selezionati
                 $apartmentAmenities = $apartment->services()->pluck('id')->toArray();
