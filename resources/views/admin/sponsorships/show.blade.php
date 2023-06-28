@@ -14,17 +14,17 @@
 
                     <div class="sponsorship-package package1">
                         <input type="radio" id="package1" name="amount" value="2.99" required>
-                        <label for="package1">€2.99 for 24 hours of sponsorship</label>
+                        <label for="package1" class="text-white">€2.99 for 24 hours of sponsorship</label>
                     </div>
                     
                     <div class="sponsorship-package package2">
                         <input type="radio" id="package2" name="amount" value="5.99">
-                        <label for="package2">€5.99 for 72 hours of sponsorship</label>
+                        <label for="package2" class="text-white">€5.99 for 72 hours of sponsorship</label>
                     </div>
                     
                     <div class="sponsorship-package package3">
                         <input type="radio" id="package3" name="amount" value="9.99">
-                        <label for="package3">€9.99 for 144 hours of sponsorship</label>
+                        <label for="package3" class="text-white">€9.99 for 144 hours of sponsorship</label>
                     </div>
 
                 </div>
