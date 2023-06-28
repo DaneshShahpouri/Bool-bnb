@@ -159,28 +159,15 @@ ul {
     }
 }
 
+
 //Sponsorship
 //-----------------------
 
-.sponsorship-container {
-    width: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sponsorship-container h2 {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #eb3b5a;
-    text-align: center;
-    margin-bottom: 30px;
+.sponsor-apt-now {
+    padding: 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
 }
 
 .sponsorship-package {
@@ -191,34 +178,142 @@ ul {
 }
 
 .sponsorship-package.package1 {
-    border-color: #ff0000; // Red
+    border-color: #1523e7; // Red
 }
 
 .sponsorship-package.package2 {
-    border-color: #00ff00; // Green
+    border-color: #1523e7; // Green
 }
 
 .sponsorship-package.package3 {
-    border-color: #0000ff; // Blue
+    border-color: #1523e7; // Blue
 }
 
 .sponsorship-package label {
     color: #333;
 }
 
-.sponsorship-container #submit-button {
-    display: block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-}
+
+// .sponsorship-container {
+//     background: #fc00ff;
+//     /* fallback for old browsers */
+//     background: -webkit-linear-gradient(to right, #00dade59, #fb00ff71);
+//     /* Chrome 10-25, Safari 5.1-6 */
+//     background: linear-gradient(to right, #00dade59, #fb00ff54);
+//     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+// }
 
 .sponsorship-container #submit-button:hover {
-    background-color: #0056b3;
+    background-color: #077428;
+}
+
+.sponsorship-container {
+
+    .card {
+        width: 200px;
+        /* Adjust the width as needed */
+        height: 200px;
+        /* Adjust the height as needed */
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        background: #fc00ff;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #00dade59, #fb00ff71);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #00dade59, #fb00ff54);
+    }
+
+
+    .card-basic {
+        border: 2px solid cornflowerblue;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+
+        background: #495c70;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #3498db9c, #557ea7);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #2a658df5, #2c3e509f);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .card-gold {
+        // border: 3px solid #ffd000;
+
+        border: 2px solid gold;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        background: #BA8B02;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #181818, #BA8B02);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #181818bb, #BA8B02);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .card-platinum {
+
+        border: 2px solid #E5E4E2;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        background: #8e9eab;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #7e8181, #8e9eab8e);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-title {
+        font-size: 24px;
+        /* Adjust the font size as needed */
+        color: gold;
+        margin-bottom: 10px;
+        /* Adjust the margin as needed */
+    }
+
+    .card-text {
+        font-size: 16px;
+        /* Adjust the font size as needed */
+        margin-bottom: 10px;
+        /* Adjust the margin as needed */
+    }
+
+    .text-basic {
+        font-weight: bold;
+        color: cornflowerblue;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-gold {
+        font-weight: bold;
+        color: gold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-plat {
+        font-weight: bold;
+        // color: #E5E4E2;
+        color: #e9e6e6;
+        /* Platinum color */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+    }
+
 }
 
 // MESSAGGI
@@ -260,6 +355,7 @@ ul {
 // INDEX APPARTAMENTI
 
 #apartment_index {
+
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
