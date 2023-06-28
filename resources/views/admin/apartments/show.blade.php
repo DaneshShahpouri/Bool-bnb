@@ -59,89 +59,110 @@ $routeName = Route::currentRouteName();
       
 
         {{-- main --}}
-        <div class="container">
+        <div class="container _container">
 
-            {{-- Apartment - name --}}
-            <h1 class="my-3">{{$apartment->name}}</h1>
-
-            {{-- Apartment - Photo --}}
-            <div class="pt-4">
-                <h3 class="mb-4">Photo</h3>
-                <div class="img_container"><img src="{{asset('storage/' . $apartment->cover_image)}}" alt="Photo"></div>
+            <div class="left-inner">
+                {{-- Apartment - name --}}
+                <div class="name-container">
+                    <h1 class="name">{{$apartment->name}}</h1>
+                    @if($activeSponsorships > 0)
+                    <div class="sponsored">
+                        <i class="fa-solid fa-rocket icon"></i>
+                        <span>Sponsored</span> 
+                    </div>   
+                    @else
+                    <div class="sponsored">
+                        <i class="fa-solid fa-ghost icon"></i>
+                        <span>Not sponsored</span> 
+                    </div>  
+                    @endif
+                </div>
+    
+                {{-- Apartment - Photo --}}
+                    <div class="img_container">
+                        <img src="{{asset('storage/' . $apartment->cover_image)}}" alt="Photo">
+                    </div>
+                
+                
+                {{-- Apartment - is visible --}}
+                <div class="info-container-left">
+                    <div class="listing_title-left st"><strong>Status</strong></div>
+                    <div>
+                        <i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i>
+                        {{$apartment->isVisible == 1 ? "Listed - Guests can book your listing and find it in search results." : "Unlisted - Guests can't book your listing or find it in search results."}}
+                    </div>
+                </div>
+                
+                 {{-- Apartment - Services --}}
+                 <div class="info-container-left">
+                     <div class="listing_title-left"><strong>Amenities</strong></div>
+                     <div>
+                         <ul class="amenities-container">
+                             @foreach ($apartment->services as $service)
+                                 <li class="border-0"><div class="am"><span class="am-icon">{!!$service->icon !!}</span> {{$service->name}}</div></li>
+                             @endforeach
+                         </ul>
+                     </div>  
+                 </div>
             </div>
 
-            {{-- ----------------------da inserire all' interno della foto --}}
-            @if($activeSponsorships > 0)
-            <div class="sponsored">
-                This apartment is currently sponsored.
-            </div>
-            @endif
-            {{-- ----------------------da inserire all' interno della foto --}}
+            <div class="right-inner">
 
-            {{-- Apartment - Details --}}
-            <div class="listing pt-5">
-                <h3>Listing Basics</h3>
-                <ul>
-                    {{-- Apartment - name --}}
-                    <li>
-                        <div class="listing_title"><strong>Listing Title</strong> </div>
-                        <div>{{$apartment->name}}</div>
-                    </li>
-                    {{-- Apartment - description --}}
-                    <li>
-                        <div class="listing_title"><strong>Listing Description</strong></div>
-                        <div>{{$apartment->description}}</div>
-                    </li>
-                    {{-- Apartment - is visible --}}
-                    <li>
-                        <div class="listing_title"><strong>Listing status</strong></div>
-                        <div><i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i> {{$apartment->isVisible == 1 ? "Listed - Guests can book your listing and find it in search results." : "Unlisted - Guests can't book your listing or find it in search results."}}</div>
-                    </li>
-                    {{-- Apartment - Services --}}
-                    <li>
-                        <div class="listing_title"><strong>Amenities</strong></div>
-                        <div>
-                            <ul class="d-flex">
-                                @foreach ($apartment->services as $service)
-                                    <li class="border-0"><div>{!!$service->icon !!} {{$service->name}}</div></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </li>
-
-                    {{-- Apartment - address --}}
-                    <li>
-                        <div class="listing_title"><strong>Listing Address</strong></div>
-                        <div>{{$apartment->address}}</div>
-                    </li>
-                </ul>
-
-                <div class="bottom_listing py-3">
-                    <h3>Property and Rooms</h3>
+                {{-- Apartment - Details --}}
+                <div class="listing-container">
+                    <div class="listing_title">Listing Basics</div>
                     <ul>
-                        {{-- Apartment - rooms --}}
+                        {{-- Apartment - name --}}
                         <li>
-                            <div class="listing_title"><strong>Rooms</strong></div>
-                            <div>{{$apartment->rooms_number}}</div>
+                            <div class="listing_title-right"><i class="fa-solid fa-hotel"></i>Name </div>
+                            <div class="results">{{$apartment->name}}</div>
                         </li>
-                        {{-- Apartment - sqm --}}
+                        {{-- Apartment - description --}}
                         <li>
-                            <div class="listing_title"><strong>Square meters</strong></div>
-                            <div>{{$apartment->sqm}}</div>
+                            <div class="listing_title-right"><i class="fa-solid fa-pen"></i>Description</div>
+                            <div class="results">{{$apartment->description}}</div>
+                        </li>
+    
+                        {{-- Apartment - address --}}
+                        <li>
+                            <div class="listing_title-right"><i class="fa-solid fa-location-dot"></i>Address</div>
+                            <div class="results">{{$apartment->address}}</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="listing-container">
+                    <div class="listing_title">Property and Rooms</div>
+                    <ul>
+                        {{-- Apartment - sqm --}}
+                        <li class="results-container">
+                            <div class="listing_title-right"><i class="fa-solid fa-arrows-left-right"></i>Square meters</div>
+                            <div class="results">{{$apartment->sqm}}</div>
+                        </li>
+                        {{-- Apartment - rooms --}}
+                        <li class="results-container">
+                            <div class="listing_title-right"><i class="fa-solid fa-door-closed"></i>Rooms</div>
+                            <div class="results">{{$apartment->rooms_number}}</div>
                         </li>
                         {{-- Apartment - beds --}}
-                        <li>
-                            <div class="listing_title"><strong>Beds</strong></div>
-                            <div>{{$apartment->beds_number}}</div>
+                        <li class="results-container">
+                            <div class="listing_title-right"><i class="fa-solid fa-bed"></i>Beds</div>
+                            <div class="results">{{$apartment->beds_number}}</div>
+                            
                         </li>
                         {{-- Apartment - bathroom --}}
-                        <li>
-                            <div class="listing_title"><strong>Bathrooms</strong></div>
-                            <div>{{$apartment->bathrooms_number}}</div>
+                        <li class="results-container">
+                            <div class="listing_title-right"><i class="fa-solid fa-bath"></i>Bathrooms</div>
+                            <div class="results">{{$apartment->bathrooms_number}}</div>
+                            
                         </li>   
                     </ul>
                 </div>
             </div>
+
+
+            {{-- ----------------------da inserire all' interno della foto --}}
+
                                 
             {{-- Delete - button --}}
             {{-- <div class="d-flex gap-3 pb-5">
