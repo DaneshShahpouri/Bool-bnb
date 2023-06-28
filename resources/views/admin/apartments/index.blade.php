@@ -5,7 +5,7 @@
 <main id="apartment_index">
     <div class="container">
       
-      <h1 class="mt-5 text-center text-lg-start">Welcome back, <span class="text-capitalize">{{Auth::user()->name == null ? 'User' : Auth::user()->name }}</span> <span class="text-capitalize">{{Auth::user()?->surname}}</span></h1>
+      {{-- <h1 class="mt-5 text-center text-lg-start">Welcome back, <span class="text-capitalize">{{Auth::user()->name == null ? 'User' : Auth::user()->name }}</span> <span class="text-capitalize">{{Auth::user()?->surname}}</span></h1> --}}
 
       <div class="d-flex my-5 justify-content-center justify-content-lg-start">
         {{-- <a class="btn btn-outline-primary me-3" href="{{route('admin.dashboard')}}">Dashboard</a> --}}
@@ -56,8 +56,8 @@
                   <td class="align-middle">
                     <div class="d-flex gap-3">
                       <a href="{{route ('admin.apartments.show' , $apartment->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
-                      <a href="{{route ('admin.messages.single', $apartment->id)}}"><i class="fa-regular fa-envelope"></i></i></a>
-                      <a href="{{route('admin.sponsorships.show', $apartment->slug)}}"><i class="fa-solid fa-sack-dollar"></i></i></i></a>
+                      <a href="{{route ('admin.messages.single', $apartment->id)}}"><i class="fa-regular fa-envelope"></i></a>
+                      <a href="{{route('admin.sponsorships.show', $apartment->slug)}}"><i class="fa-solid fa-chart-line"></i></a>
                     </div>
                   </td>
                 </tr>

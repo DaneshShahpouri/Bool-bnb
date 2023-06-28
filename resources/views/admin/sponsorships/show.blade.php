@@ -73,6 +73,7 @@
         </div>
     </div>
 </div>
+</div>
 
 <!-- Include the Braintree JavaScript SDK -->
 <script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script>

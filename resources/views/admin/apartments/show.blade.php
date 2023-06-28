@@ -12,19 +12,22 @@ $routeName = Route::currentRouteName();
     <main id="apartment_show">
 
         {{-- Sidebar --}}
-        <aside id="admin-sidebar" class="position-sticky" style="top:0;"">
+        <aside id="admin-sidebar" class="col-2 position-sticky" style="top:50px;">
             <div class="card {{ $routeName == 'admin.dashboard' ? 'border-danger' : ''}}">
-                <div class="card-header {{ $routeName == 'admin.dashboard' ? 'text-danger' : ''}}">
-                    Home
-                </div>
+                {{-- <div class="card-header {{ $routeName == 'admin.dashboard' ? 'text-danger' : ''}}">
+                    {{$apartment->name}}
+                </div> --}}
                 {{-- <div class="list-group list-group-flush">
                     <a href="{{route('admin.dashboard')}}" class="list-group-item list-group-item-action {{ routeNameContains('admin.dashboard') ? 'active' : ''}}">Dashboard</a>
                 </div> --}}
                 <div class="list-group list-group-flush">
-                    <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Dashboard</a>
-                    <a href="{{route ('admin.messages.single', $apartment->id)}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Apt Messages</a>
-                    <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}">Sponsor Apt</a>
-                    <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a>
+                    <a href="{{route('admin.dashboard')}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('admin.dashboard') ? 'active' : ''}}"><i class="fa-solid fa-house me-2"></i> Dashboard</a>
+                    <a href="{{route('admin.apartments.index')}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}"><i class="fa-solid fa-building me-2"></i> Your Apartments</a>
+                    <a href="{{route ('admin.messages.single', $apartment->id)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}"><i class="fa-solid fa-envelope me-2"></i> Messages</a>
+                    <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}"><i class="fa-solid fa-chart-line me-2"></i> Sponsor</a>
+                    <a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}"><i class="fa-solid fa-pen me-2"></i> Edit</a>
+                    <a type="button" class="py-3 list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash me-2"></i> Delete</a>                    
+                    {{-- <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a> --}}
                 </div>
             </div>
 
@@ -118,11 +121,11 @@ $routeName = Route::currentRouteName();
             </div>
                                 
             {{-- Delete - button --}}
-            <div class="d-flex gap-3 pb-5">
+            {{-- <div class="d-flex gap-3 pb-5">
                 <button class="btn btn-primary "><a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="text-white text-decoration-none">Edit Apartment</a></button>
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     DELETE
-                </button>
+                </button> --}}
     
                 {{-- Delete - modal --}}
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
