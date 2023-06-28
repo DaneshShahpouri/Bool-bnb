@@ -1,10 +1,12 @@
 @php
+use Illuminate\Support\Str;
 
 $routeName = Route::currentRouteName();
   function routeNameContains($string) {
     return str_contains(Route::currentRouteName(), $string);
   }
 @endphp
+
 
 
 @extends('layouts/admin')
@@ -41,7 +43,7 @@ $routeName = Route::currentRouteName();
             <div class="left-inner">
                 {{-- Apartment - name --}}
                 <div class="name-container">
-                    <h1 class="name">{{$apartment->name}}</h1>
+                    <div class="name">{{Str::limit($apartment->name, 40)}}</div>
                     @if($activeSponsorships > 0)
                     <div class="sponsored">
                         <i class="fa-solid fa-rocket icon"></i>
@@ -97,7 +99,7 @@ $routeName = Route::currentRouteName();
                         {{-- Apartment - description --}}
                         <li>
                             <div class="listing_title-right"><i class="fa-solid fa-pen"></i>Description</div>
-                            <div class="results">{{$apartment->description}}</div>
+                            <div class="results"> {{Str::limit($apartment->description, 250)}}</div>
                         </li>
     
                         {{-- Apartment - address --}}

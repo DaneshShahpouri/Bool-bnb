@@ -189,6 +189,8 @@ ul {
         padding-top: 20px;
         padding-bottom: 10px;
         margin: 0;
+
+        font-size: 1.8em;
     }
 
     .icon {
@@ -239,6 +241,8 @@ ul {
         display: flex;
         align-items: center;
         gap: 8px;
+
+        white-space: nowrap;
     }
 
     .amenities-container {
@@ -297,6 +301,28 @@ ul {
 
     li {
         list-style-type: none;
+    }
+
+    @media (max-width: 1440px){
+
+        ._container {
+            flex-direction: column;
+        }
+
+        .left-inner {
+            padding-right: 60px;
+            width: 100%;
+        }
+
+        .right-inner {
+            padding-left: 10px;
+    
+            width: 100%;
+            height: unset;
+
+            border-left: none;
+        }
+
     }
 }
 
@@ -956,6 +982,4 @@ ul {
         }
 
     }
-
-
 }
