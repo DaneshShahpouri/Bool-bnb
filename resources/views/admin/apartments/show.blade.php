@@ -17,26 +17,32 @@ $routeName = Route::currentRouteName();
                 <div class="card-header {{ $routeName == 'admin.dashboard' ? 'text-danger' : ''}}">
                     Home
                 </div>
-                <div class="list-group list-group-flush">
+                {{-- <div class="list-group list-group-flush">
                     <a href="{{route('admin.dashboard')}}" class="list-group-item list-group-item-action {{ routeNameContains('admin.dashboard') ? 'active' : ''}}">Dashboard</a>
+                </div> --}}
+                <div class="list-group list-group-flush">
+                    <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Dashboard</a>
+                    <a href="{{route ('admin.messages.single', $apartment->id)}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Apt Messages</a>
+                    <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}">Sponsor Apt</a>
+                    <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a>
                 </div>
             </div>
 
           
-            <div class="card {{ routeNameContains('apartments.') ? 'border-danger' : ''}}">
+            {{-- <div class="card {{ routeNameContains('apartments.') ? 'border-danger' : ''}}">
                 <div class="card-header {{ routeNameContains('apartments.') ? 'text-danger' : ''}}">
-                    Apartments
+                    Dashboard
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="{{route('admin.apartments.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Your Apartments</a>
                     <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}">Sponsor Apt</a>
                     <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a>
                 </div>
-            </div>
+            </div> --}}
 
 
             {{-- card messaggi --}}
-            <div class="card {{ routeNameContains('apartments.') ? 'border-danger' : ''}}">
+            {{-- <div class="card {{ routeNameContains('apartments.') ? 'border-danger' : ''}}">
                 <div class="card-header {{ routeNameContains('apartments.') ? 'text-danger' : ''}}">
                     Messages
                 </div>
@@ -44,7 +50,7 @@ $routeName = Route::currentRouteName();
                     <a href="{{route('admin.messages.index')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">All Messages</a>
                     <a href="{{route ('admin.messages.single', $apartment->id)}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}">Apt Messages</a>
                 </div>
-            </div>
+            </div> --}}
         </aside>
         {{-- end Sidebar --}}
       

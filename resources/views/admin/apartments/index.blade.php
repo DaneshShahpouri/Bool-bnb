@@ -4,9 +4,11 @@
 
 <main id="apartment_index">
     <div class="container">
+      
+      <h1 class="mt-5 text-center text-lg-start">Welcome back, <span class="text-capitalize">{{Auth::user()->name == null ? 'User' : Auth::user()->name }}</span> <span class="text-capitalize">{{Auth::user()?->surname}}</span></h1>
 
       <div class="d-flex my-5 justify-content-center justify-content-lg-start">
-        <a class="btn btn-outline-primary me-3" href="{{route('admin.dashboard')}}">Dashboard</a>
+        {{-- <a class="btn btn-outline-primary me-3" href="{{route('admin.dashboard')}}">Dashboard</a> --}}
         <a class="btn btn-outline-primary me-3"  href="{{route ('admin.apartments.create')}}">Add Apartment</a>
         <a class="btn btn-outline-primary me-3" href="{{route('admin.messages.index')}}">All messages</a>
       </div>
