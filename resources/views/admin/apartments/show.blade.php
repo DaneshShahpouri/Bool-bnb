@@ -29,11 +29,25 @@ $routeName = Route::currentRouteName();
                     <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}"><i class="fa-solid fa-chart-line me-2"></i> Sponsor</a>
                     <a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}"><i class="fa-solid fa-pen me-2"></i> Edit</a>
                     <a type="button" class="py-3 list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash me-2"></i> Delete</a>                    
-                    {{-- <a href="{{route('admin.apartments.create')}}" class="list-group-item list-group-item-action {{ routeNameContains('apartments.create') ? 'active' : ''}}">Add Apartment</a> --}}
                 </div>
             </div>
-
         </aside>
+        <aside id="admin-sidebar-mobile">
+            <div class="_card {{ $routeName == 'admin.dashboard' ? 'border-danger' : ''}}">
+                <a href="{{route('admin.dashboard')}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('admin.dashboard') ? 'active' : ''}}"><i class="fa-solid fa-house me-2"></i></a>
+                <a href="{{route('admin.apartments.index')}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}"><i class="fa-solid fa-building me-2"></i></a>
+                <a href="{{route ('admin.messages.single', $apartment->id)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('apartments.index') ? 'active' : ''}}"><i class="fa-solid fa-envelope me-2"></i></a>
+                <a href="{{route('admin.sponsorships.show', $apartment->slug)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}"><i class="fa-solid fa-chart-line me-2"></i></a>
+                <a href="{{route('admin.apartments.edit' , $apartment->slug)}}" class="py-3 list-group-item list-group-item-action {{ routeNameContains('sponsorships.show') ? 'active' : ''}}"><i class="fa-solid fa-pen me-2"></i></a>
+                <a type="button" class="py-3 list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash me-2"></i></a> 
+                <button id="sidebar-btn-close" class="_btn py-3 list-group-item list-group-item-action"><i class="fa-solid fa-arrow-left"></i></button>                   
+            </div>
+        </aside>
+        <div class="sidebar-btn-container">
+            <div id="sidebar-btn-open" class="arrow-btn">
+                <i class="fa-solid fa-caret-right"></i>
+            </div>
+        </div>
         {{-- end Sidebar --}}
       
 
@@ -56,6 +70,17 @@ $routeName = Route::currentRouteName();
                     </div>  
                     @endif
                 </div>
+                @if($activeSponsorships > 0)
+                    <div class="sponsored-mobile">
+                        <i class="fa-solid fa-rocket icon"></i>
+                        <span>Sponsored</span> 
+                    </div>   
+                    @else
+                    <div class="sponsored-mobile">
+                        <i class="fa-solid fa-ghost icon"></i>
+                        <span>Not sponsored</span> 
+                    </div>  
+                 @endif
     
                 {{-- Apartment - Photo --}}
                     <div class="img_container">
@@ -177,7 +202,26 @@ $routeName = Route::currentRouteName();
         </div>
 
     </main>
+@endsection
 
+@section('script')
+
+    <script>
+        let closeBtn = document.getElementById('sidebar-btn-close');
+        let openBtn = document.getElementById('sidebar-btn-open');
+        let elementToHide = document.getElementById('admin-sidebar-mobile');
+        let elementToShow = document.getElementById('sidebar-btn-open');
     
+        closeBtn.addEventListener('click', function() {
+            elementToHide.style.display = 'none';
+            elementToShow.style.display = 'flex';
+        });
+
+        openBtn.addEventListener('click', function() {
+            elementToShow.style.setProperty('display', 'none', 'important');
+            elementToHide.style.display = 'block';
+        });
     
+    </script>
+
 @endsection
