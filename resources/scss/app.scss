@@ -107,6 +107,12 @@ ul {
             width: 100%;
         }
     }
+
+    .dropdown-item {
+        &:active {
+            background-color: #ff5a5f !important;
+        }
+    }
 }
 
 // Admin
@@ -141,6 +147,7 @@ ul {
             &:hover {
                 background-color: #ff5a5f;
                 color: white;
+
                 i {
                     color: white;
                 }
@@ -175,13 +182,17 @@ ul {
 
 //Sponsorship
 //-----------------------
+._sponsorship-wrapper {
+    position: relative;
+    margin-top: 4em;
+}
 
 .sponsorship-container {
     width: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 10px;
@@ -274,6 +285,7 @@ ul {
 // INDEX APPARTAMENTI
 
 #apartment_index {
+
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
@@ -308,4 +320,179 @@ ul {
             padding-left: 0;
         }
     }
+}
+
+
+
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+
+    ._dashboard-wrapper {
+        display: flex;
+        gap: 1em;
+        max-width: 1200px;
+        margin: auto;
+
+
+        ._main {
+            width: calc(70% - 1em);
+            padding: .5em;
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        ._user {
+            width: calc(30% - 1em);
+            padding: .5em;
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: .5em;
+
+            .img-wrapper {
+                width: 100px;
+                height: 100px;
+                overflow: hidden;
+                border-radius: 50%;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
+    }
+
+    ._apartments {
+        margin: auto;
+        max-width: 1200px;
+        width: 100%;
+        margin-top: 2em;
+        padding: 2em;
+        border-radius: 20px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+        .card-wrapper {
+            display: flex;
+            gap: 1em;
+
+            ._add-apartment-button {
+                width: calc((100% / 4) - 1em);
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card {
+                width: calc((100% / 4) - 1em);
+                border-radius: 10px;
+                text-decoration: none;
+                transition: all .5s;
+
+                &:hover {
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+                    .info-card {
+                        h6 {
+                            color: #4b1313;
+                        }
+                    }
+
+
+                }
+
+                .img-wrapper {
+                    width: 100%;
+                    height: 150px;
+                    overflow: hidden;
+                    border-radius: 10px 10px 0 0;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                .info-card {
+                    padding: .4em;
+
+                    * {
+                        transition: all .4s;
+                    }
+                }
+            }
+        }
+
+    }
+
+    @media (max-width: 700px) {
+
+        ._dashboard-wrapper {
+            flex-direction: column;
+
+            ._main {
+                width: 100%;
+            }
+
+            ._user {
+                width: 100%;
+            }
+        }
+
+        ._apartments {
+            margin: auto;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 2em;
+            padding: 2em;
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+            .card-wrapper {
+                display: flex;
+                gap: 1em;
+
+                ._add-apartment-button {
+                    width: calc((100% / 4) - 1em);
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .card {
+                    .img-wrapper {
+                        width: 100%;
+                        height: 100px;
+
+                    }
+
+                    .info-card {
+
+                        h6 {
+                            font-size: .8em;
+                            text-align: center;
+                        }
+
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
 }

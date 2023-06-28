@@ -2,9 +2,10 @@
 
 @section('content')
 
+<div class="container _sponsorship-wrapper">
 
-<div class="sponsorship-container">
-    <h2>Choose a sponsorship package</h2>
+    <div class="sponsorship-container">
+        <h2>Choose a sponsorship package</h2>
 
     <form method="post" id="payment-form" action="{{ route('admin.sponsorships.store', $apartment->slug) }}">
         @csrf
@@ -30,6 +31,7 @@
 
         <button id="submit-button">Sponsor this apartment</button>
     </form>
+</div>
 </div>
 
 <!-- Include the Braintree JavaScript SDK -->
