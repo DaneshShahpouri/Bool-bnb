@@ -150,6 +150,7 @@ function advicedCity() {
                         inputEdit.value = listEl.innerText;
                         suggestEdit.innerHTML = ''
                         isValidAddressEdit = true;
+                        isValidAddress = true
                         messageAddressEdit.innerText = ''
                     })
                 })
@@ -160,6 +161,7 @@ function advicedCity() {
                     isValidAddressEdit = false
                 } else {
                     isValidAddressEdit = true
+                    isValidAddress = true
                 }
 
             })
@@ -169,8 +171,8 @@ function advicedCity() {
     }
 }
 
-console.log('AppJs')
-console.log(isValidAddressEdit)
+// console.log('AppJs')
+// console.log(isValidAddressEdit)
 //-------------------------------------------------------
 //Chiamata Axios per suggerimento indirizzi
 

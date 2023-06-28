@@ -173,6 +173,8 @@
         message.innerText='';
         messageAddressEdit.innerText='';
 
+        
+
 
         if (!isChecked) {
             message.innerText='Please select at least one service.';

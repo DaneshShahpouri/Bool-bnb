@@ -156,6 +156,9 @@
             messageServices.innerText='';
             messageAddress.innerText='';
 
+            
+
+
             if (!isChecked) {
                 messageServices.innerText='Please select at least one service.';
                 return false;
