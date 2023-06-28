@@ -40,7 +40,7 @@
             </div>
 
             {{-- cover-image --}}
-            <div class="mb-3">
+            <div class="mb-4">
                 <label for="cover_image" class="mb-2">Apartment Photo</label>
                 <input type="file" id="cover_image" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror">
                 <div class="text-danger" id="error-image"></div>
@@ -52,7 +52,7 @@
             </div>
 
             {{-- is visible --}}
-            <div class="mb-3">
+            <div class="mb-4">
                 <label for="isVisible">Visibility :</label>
                 <select name="isVisible" id="isVisible" class="w-20" required>
                     <option value=1 @if(old('isVisible', $apartment->isVisible) == 1) selected @endif>Show Listing</option>
@@ -61,9 +61,9 @@
             </div>
 
             {{-- services --}}
-            <div class="mb-3 form-group">
-                <div class="text-uppercase fw-bold mb-2">Select Amenities*:</div>
-                <div class="d-flex">
+            <div class="mb-3 form-group _services">
+                <div class="text-uppercase fw-bold my-3">Select Amenities*:</div>
+                <div class="d-flex flex-wrap gap-3 justify-content-sm-start justify-content-center">
                     @foreach ($services as $service)  
                     <div class="form-check">
                         
@@ -73,7 +73,10 @@
                             <input class="update-services" type="checkbox" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked($apartment->services->contains($service))>
                             @endif
                             
-                            <label for="tag-{{$service->id}}" class="mb-2">{{$service->name}}</label>
+                            <label for="tag-{{$service->id}}" class="mb-2">
+                                <span class="_icon d-md-none d-block ms-1">{!!$service->icon!!}</span>
+                                <span class="_name d-none d-md-inline">{{$service->name}}</span>
+                            </label>
                         </div>
                         @endforeach
                     </div>

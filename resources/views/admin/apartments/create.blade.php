@@ -61,7 +61,7 @@
             {{-- services --}}
             <div class="mb-3 form-group _services">
                 <div class="text-uppercase fw-bold my-3">Select Amenities*:</div>
-                <div class="d-flex flex-wrap gap-3 justify-content-sm-start justify-content-center">
+                <div class="d-flex flex-wrap gap-3 justify-content--start justify-content-center">
                     @foreach ($services as $service)
                         <div class="form-check">
                             <input type="checkbox" class="services" id="tag-{{$service->id}}" name="services[]" value="{{$service->id}}" @checked(in_array($service->id, old('services', [])))>

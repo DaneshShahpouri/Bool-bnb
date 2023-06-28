@@ -49,43 +49,41 @@
         list-style: none;
         overflow: hidden;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.219);
+    }
 
+    ._first-li {
+        cursor: auto;
+
+        &:hover {
+            background: white;
+            color: black;
+        }
+    }
+
+    li {
+        cursor: pointer;
+        padding: 0.5em;
+
+        ._location-icon {
+            margin-right: 0.5em;
+            font-size: 0.8em;
+            color: rgb(180, 180, 180);
+        }
+
+        &:hover {
+            background: rgb(255, 90, 95);
+            color: white;
+
+            ._location-icon {
+                color: rgb(255, 255, 255);
+            }
+        }
     }
 
     @media (max-width: 400px) {
-
         #edit-suggest,
         #create-suggest {
             width: 300px;
-        }
-
-        ._first-li {
-            cursor: auto;
-
-            &:hover {
-                background: white;
-                color: black;
-            }
-        }
-
-        li {
-            cursor: pointer;
-            padding: 0.5em;
-
-            ._location-icon {
-                margin-right: 0.5em;
-                font-size: 0.8em;
-                color: rgb(180, 180, 180);
-            }
-
-            &:hover {
-                background: rgb(255, 90, 95);
-                color: white;
-
-                ._location-icon {
-                    color: rgb(255, 255, 255);
-                }
-            }
         }
     }
 }
@@ -189,12 +187,13 @@ ul {
         padding-top: 20px;
         padding-bottom: 10px;
         margin: 0;
+
+        font-size: 1.8em;
     }
 
     .icon {
         font-size: 1.2em;
         color: #ff5e63;
-
     }
 
     .img_container {
@@ -239,6 +238,8 @@ ul {
         display: flex;
         align-items: center;
         gap: 8px;
+
+        white-space: nowrap;
     }
 
     .amenities-container {
@@ -294,12 +295,32 @@ ul {
         padding-right: 180px;
     }
 
-
     li {
         list-style-type: none;
     }
-}
 
+    @media (max-width: 1440px){
+
+        ._container {
+            flex-direction: column;
+        }
+
+        .left-inner {
+            padding-right: 60px;
+            width: 100%;
+        }
+
+        .right-inner {
+            padding-left: 10px;
+    
+            width: 100%;
+            height: unset;
+
+            border-left: none;
+        }
+
+    }
+}
 
 //Sponsorship
 //-----------------------
@@ -327,7 +348,6 @@ ul {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-
     background: #495c70;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #3498db9c, #557ea7);
@@ -341,16 +361,16 @@ ul {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-    background: #BA8B02;
+    background: #ba8b02;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #181818, #BA8B02);
+    background: -webkit-linear-gradient(to right, #181818, #ba8b02);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #181818bb, #BA8B02);
+    background: linear-gradient(to right, #181818bb, #ba8b02);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .sponsorship-package.package3 {
-    border: 2px solid #E5E4E2;
+    border: 2px solid #e5e4e2;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -367,7 +387,6 @@ ul {
     color: #333;
 }
 
-
 // .sponsorship-container {
 //     background: #fc00ff;
 //     /* fallback for old browsers */
@@ -382,7 +401,6 @@ ul {
 }
 
 .sponsorship-container {
-
     .card {
         width: 200px;
         /* Adjust the width as needed */
@@ -392,12 +410,10 @@ ul {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-
     .card-basic {
         border: 2px solid cornflowerblue;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
 
         background: #495c70;
         /* fallback for old browsers */
@@ -405,7 +421,6 @@ ul {
         /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #2a658df5, #2c3e509f);
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     }
 
     .card-gold {
@@ -415,18 +430,16 @@ ul {
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-        background: #BA8B02;
+        background: #ba8b02;
         /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #181818, #BA8B02);
+        background: -webkit-linear-gradient(to right, #181818, #ba8b02);
         /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #181818bb, #BA8B02);
+        background: linear-gradient(to right, #181818bb, #ba8b02);
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     }
 
     .card-platinum {
-
-        border: 2px solid #E5E4E2;
+        border: 2px solid #e5e4e2;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -436,7 +449,6 @@ ul {
         /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #7e8181, #8e9eab8e);
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     }
 
     .card-body {
@@ -479,9 +491,7 @@ ul {
         color: #e9e6e6;
         /* Platinum color */
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
     }
-
 }
 
 // MESSAGGI
@@ -523,7 +533,6 @@ ul {
 // INDEX APPARTAMENTI
 
 #apartment_index {
-
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
@@ -558,31 +567,27 @@ ul {
             padding-left: 0;
         }
     }
-
 }
 
 @media (max-width: 575.98px) {
     #apartment_create {
-        ._services {
+        .form-check {
+            padding-left: 0;
+            width: calc((100% / 2) - 2em);
+
+            label {
+                scale: 1.6;
+            }
+
             ._icon {
                 height: 20px;
                 width: 20px;
-
-            }
-
-            .form-check {
-                padding-left: 0;
-                width: calc((100% / 2) - 2em);
-
-                label {
-                    scale: 1.6;
-                }
             }
         }
     }
 }
 
-
+// EDIT APPARTAMENTI
 
 #dashboard {
     display: flex;
@@ -595,17 +600,16 @@ ul {
         max-width: 1200px;
         margin: auto;
 
-
         ._main {
             width: calc(70% - 1em);
-            padding: .5em;
+            padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         ._user {
             width: calc(30% - 1em);
-            padding: .5em;
+            padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
@@ -613,7 +617,7 @@ ul {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: .5em;
+            gap: 0.5em;
 
             .img-wrapper {
                 width: 100px;
@@ -627,7 +631,6 @@ ul {
                 }
             }
         }
-
     }
 
     ._apartments {
@@ -655,7 +658,7 @@ ul {
                 width: calc((100% / 4) - 1em);
                 border-radius: 10px;
                 text-decoration: none;
-                transition: all .5s;
+                transition: all 0.5s;
 
                 &:hover {
                     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -665,8 +668,6 @@ ul {
                             color: #4b1313;
                         }
                     }
-
-
                 }
 
                 .img-wrapper {
@@ -683,19 +684,17 @@ ul {
                 }
 
                 .info-card {
-                    padding: .4em;
+                    padding: 0.4em;
 
                     * {
-                        transition: all .4s;
+                        transition: all 0.4s;
                     }
                 }
             }
         }
-
     }
 
     @media (max-width: 700px) {
-
         ._dashboard-wrapper {
             flex-direction: column;
 
@@ -733,13 +732,11 @@ ul {
                     .img-wrapper {
                         width: 100%;
                         height: 100px;
-
                     }
 
                     .info-card {
-
                         h6 {
-                            font-size: .8em;
+                            font-size: 0.8em;
                             text-align: center;
                         }
 
@@ -749,14 +746,9 @@ ul {
                     }
                 }
             }
-
         }
-
     }
-
-
 }
-
 
 #dashboard {
     display: flex;
@@ -769,10 +761,9 @@ ul {
         max-width: 1200px;
         margin: auto;
 
-
         ._main {
             width: calc(70% - 1em);
-            padding: .5em;
+            padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -781,8 +772,8 @@ ul {
 
             h2 {
                 i {
-                    margin-left: .5em;
-                    font-size: .8em;
+                    margin-left: 0.5em;
+                    font-size: 0.8em;
                     color: #ff5a5f;
                 }
             }
@@ -790,7 +781,7 @@ ul {
 
         ._user {
             width: calc(30% - 1em);
-            padding: .5em;
+            padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
@@ -798,7 +789,7 @@ ul {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: .5em;
+            gap: 0.5em;
 
             i {
                 color: #ff5a5f;
@@ -816,7 +807,6 @@ ul {
                 }
             }
         }
-
     }
 
     ._apartments {
@@ -831,8 +821,8 @@ ul {
         h3 {
             i {
                 color: #ff5a5f;
-                font-size: .9em;
-                margin-left: .5em;
+                font-size: 0.9em;
+                margin-left: 0.5em;
             }
         }
 
@@ -858,7 +848,7 @@ ul {
                 width: calc((100% / 4) - 1em);
                 border-radius: 10px;
                 text-decoration: none;
-                transition: all .5s;
+                transition: all 0.5s;
 
                 &:hover {
                     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -868,8 +858,6 @@ ul {
                             color: #4b1313;
                         }
                     }
-
-
                 }
 
                 .img-wrapper {
@@ -886,19 +874,17 @@ ul {
                 }
 
                 .info-card {
-                    padding: .4em;
+                    padding: 0.4em;
 
                     * {
-                        transition: all .4s;
+                        transition: all 0.4s;
                     }
                 }
             }
         }
-
     }
 
     @media (max-width: 700px) {
-
         ._dashboard-wrapper {
             flex-direction: column;
 
@@ -936,13 +922,11 @@ ul {
                     .img-wrapper {
                         width: 100%;
                         height: 100px;
-
                     }
 
                     .info-card {
-
                         h6 {
-                            font-size: .8em;
+                            font-size: 0.8em;
                             text-align: center;
                         }
 
@@ -952,10 +936,6 @@ ul {
                     }
                 }
             }
-
         }
-
     }
-
-
 }
