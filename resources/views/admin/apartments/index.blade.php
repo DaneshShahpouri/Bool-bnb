@@ -4,7 +4,15 @@
 
 <main id="apartment_index">
     <div class="container">
-      <table class="table  table-striped mt-5">
+
+      <div class="d-flex my-5 justify-content-center justify-content-lg-start">
+        <a class="btn btn-outline-primary me-3" href="{{route('admin.dashboard')}}">Dashboard</a>
+        <a class="btn btn-outline-primary me-3"  href="{{route ('admin.apartments.create')}}">Add Apartment</a>
+        <a class="btn btn-outline-primary me-3" href="{{route('admin.messages.index')}}">All messages</a>
+      </div>
+
+
+      <table class="table table-striped my-5">
           {{-- Table - head --}}
             <thead>
               <tr>
@@ -55,9 +63,7 @@
               @endforeach
             </tbody>
           </table>
-          <div class="d-flex justify-content-center m-5">
-            <a class="btn btn-outline-primary" href="{{route ('admin.apartments.create')}}">Add new Apartment</a>
-          </div>
+
     </div>
 </main>    
 @endsection
