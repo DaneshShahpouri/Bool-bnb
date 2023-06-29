@@ -5,6 +5,7 @@
 <div class="container sponsorship-container rounded my-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
+           
             {{-- <h2 class="mb-lg-5 mb-4 text-center text-danger">Choose a sponsorship package</h2> --}}
 
             <form method="post" id="payment-form" action="{{ route('admin.sponsorships.store', $apartment->slug) }}">
@@ -61,13 +62,13 @@
                 </div>
 
                 <strong>
-                    <div id="dropin-container" class="my-lg-5 my-3 border border-primary bg-warning rounded px-3 pb-3 align-middle text-bold"></div>
+                    <div id="dropin-container" class="my-lg-5 my-3 border border-primary bg-light rounded px-3 pb-3 align-middle text-bold"></div>
                 </strong>
 
                 <input type="hidden" id="nonce" name="payment_method_nonce">
 
                 <div class="text-center">
-                    <button id="submit-button" class="sponsor-apt-now my-3 btn btn-danger">Sponsor this apartment</button>
+                    <button id="submit-button" class="sponsor-apt-now my-3 btn">Sponsor this apartment</button>
                 </div>
             </form>
         </div>

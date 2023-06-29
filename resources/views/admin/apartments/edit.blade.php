@@ -2,7 +2,7 @@
 
 @section('content')
 
-<main class="apartment_edit">
+<main id="apartment_edit">
 
     @if($apartment->user_id == Auth::id())
 

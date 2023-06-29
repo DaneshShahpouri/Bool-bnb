@@ -259,9 +259,9 @@ class ApartmentController extends Controller
         $newApartments = [];
 
         $apartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
-            ->where('rooms_number', '>', $rooms)
-            ->where('beds_number', '>', $beds)
-            ->where('bathrooms_number', '>', $bath)
+            ->where('rooms_number', '>=', $rooms)
+            ->where('beds_number', '>=', $beds)
+            ->where('bathrooms_number', '>=', $bath)
             ->where('isVisible', '=', 1)
             ->has('sponsorships')
             ->orderBy('created_at', 'desc')
@@ -296,9 +296,9 @@ class ApartmentController extends Controller
         }
 
         $UnSponsorapartments = Apartment::with('user', 'services', 'views', 'messages', 'sponsorships')
-            ->where('rooms_number', '>', $rooms)
-            ->where('beds_number', '>', $beds)
-            ->where('bathrooms_number', '>', $bath)
+            ->where('rooms_number', '>=', $rooms)
+            ->where('beds_number', '>=', $beds)
+            ->where('bathrooms_number', '>=', $bath)
             ->where('isVisible', '=', 1)
             ->doesntHave('sponsorships')
             ->orderBy('created_at', 'desc')

@@ -160,7 +160,7 @@ ul {
         }
     }
 
-    #admin-sidebar-mobile{
+    #admin-sidebar-mobile {
         position: fixed;
         left: 0;
         top: 180px;
@@ -168,7 +168,7 @@ ul {
         display: none;
     }
 
-    ._card{
+    ._card {
         position: sticky;
         top: 180px;
 
@@ -197,20 +197,21 @@ ul {
             }
         }
     }
-    ._btn{
+
+    ._btn {
         background: none;
         border: none;
 
         color: white;
     }
 
-    .sidebar-btn-container{
+    .sidebar-btn-container {
         position: fixed;
         left: 0;
         top: 50vh;
     }
 
-    .arrow-btn{
+    .arrow-btn {
         display: none !important;
 
         align-items: center;
@@ -316,7 +317,7 @@ ul {
         white-space: nowrap;
     }
 
-    .sponsored-mobile{
+    .sponsored-mobile {
         display: none;
     }
 
@@ -397,8 +398,7 @@ ul {
         list-style-type: none;
     }
 
-    @media (max-width: 1440px){
-
+    @media (max-width: 1440px) {
         ._container {
             flex-direction: column;
         }
@@ -410,7 +410,7 @@ ul {
 
         .right-inner {
             padding-left: 10px;
-    
+
             width: 100%;
             height: unset;
 
@@ -418,10 +418,9 @@ ul {
         }
     }
 
-    @media (max-width: 920px){
-
+    @media (max-width: 920px) {
         .img_container {
-            width: 100%;   
+            width: 100%;
         }
 
         .left-inner {
@@ -429,16 +428,16 @@ ul {
         }
     }
 
-    @media (max-width: 700px){
+    @media (max-width: 700px) {
         #admin-sidebar {
             display: none;
         }
 
-        .arrow-btn{
+        .arrow-btn {
             display: flex !important;
         }
 
-        .sidebar-btn-container{
+        .sidebar-btn-container {
             position: fixed;
             left: 0;
             top: 50vh;
@@ -452,7 +451,7 @@ ul {
             display: none;
         }
 
-        .sponsored-mobile{
+        .sponsored-mobile {
             display: block;
             text-align: center;
 
@@ -483,24 +482,24 @@ ul {
 
         }
 
-        .right-inner{
+        .right-inner {
             padding-left: 0;
         }
 
-        .listing_title{
+        .listing_title {
             text-align: center;
         }
 
-        .listing_title-right{
+        .listing_title-right {
             justify-content: center;
 
             padding-bottom: 10px;
         }
 
-        .results{
+        .results {
             padding-right: 0;
             padding-bottom: 12px;
-            
+
             text-align: center;
         }
 
@@ -586,8 +585,14 @@ ul {
 //     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 // }
 
+.sponsorship-container #submit-button {
+    background-color: rgb(121, 199, 121);
+    color: white;
+}
+
 .sponsorship-container #submit-button:hover {
-    background-color: #077428;
+    background-color: #10ae20;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sponsorship-container {
@@ -777,6 +782,43 @@ ul {
     }
 }
 
+// edit APPARTAMENTI
+
+#apartment_edit {
+    #edit-form {
+        ._services {
+            ._icon {
+                height: 20px;
+                width: 20px;
+            }
+
+            .form-check {
+                padding-left: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    #apartment_edit {
+        #edit-form {
+            .form-check {
+                padding-left: 0;
+                width: calc((100% / 2) - 2em);
+
+                label {
+                    scale: 1.6;
+                }
+
+                ._icon {
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+        }
+    }
+}
+
 // EDIT APPARTAMENTI
 
 #dashboard {
@@ -952,7 +994,7 @@ ul {
         margin: auto;
 
         ._main {
-            width: calc(70% - 1em);
+            width: calc(70% - 0.5em);
             padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -970,7 +1012,7 @@ ul {
         }
 
         ._user {
-            width: calc(30% - 1em);
+            width: calc(30% - 0.5em);
             padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -1074,7 +1116,7 @@ ul {
         }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 780px) {
         ._dashboard-wrapper {
             flex-direction: column;
 
@@ -1128,4 +1170,82 @@ ul {
             }
         }
     }
+
+    @media (max-width: 650px) {
+        ._apartments {
+            .card-wrapper {
+                display: flex;
+                flex-flow: row wrap;
+                gap: 0.5em;
+
+                ._add-apartment-button {
+                    width: 100%;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .card {
+                    width: calc((100% / 2) - 0.5em);
+
+                    .img-wrapper {
+                        width: 100%;
+                        height: 120px;
+                    }
+
+                    .info-card {
+                        h6 {
+                            font-size: 0.8em;
+                            text-align: center;
+                        }
+
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 400px) {
+        ._apartments {
+            .card-wrapper {
+                display: flex;
+                flex-flow: row wrap;
+                gap: 0.5em;
+
+                ._add-apartment-button {
+                    width: 100%;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .card {
+                    width: 100%;
+
+                    .img-wrapper {
+                        width: 100%;
+                        height: 100px;
+                    }
+
+                    .info-card {
+                        h6 {
+                            font-size: 0.8em;
+                            text-align: center;
+                        }
+
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
+//Due dashboard?
