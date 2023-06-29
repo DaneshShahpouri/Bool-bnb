@@ -74,12 +74,7 @@ $routeName = Route::currentRouteName();
                     <div class="sponsored-mobile">
                         <i class="fa-solid fa-rocket icon"></i>
                         <span>Sponsored</span> 
-                    </div>   
-                    @else
-                    <div class="sponsored-mobile">
-                        <i class="fa-solid fa-ghost icon"></i>
-                        <span>Not sponsored</span> 
-                    </div>  
+                    </div>     
                  @endif
     
                 {{-- Apartment - Photo --}}
@@ -91,7 +86,7 @@ $routeName = Route::currentRouteName();
                 {{-- Apartment - is visible --}}
                 <div class="info-container-left">
                     <div class="listing_title-left st"><strong>Status</strong></div>
-                    <div>
+                    <div class="is-visible">
                         <i class="{{$apartment->isVisible == 1 ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}"></i>
                         {{$apartment->isVisible == 1 ? "Listed - Guests can book your listing and find it in search results." : "Unlisted - Guests can't book your listing or find it in search results."}}
                     </div>
@@ -113,31 +108,35 @@ $routeName = Route::currentRouteName();
             <div class="right-inner">
 
                 {{-- Apartment - Details --}}
-                <div class="listing-container">
+                <div class="listing-container basics">
                     <div class="listing_title">Listing Basics</div>
                     <ul>
                         {{-- Apartment - name --}}
-                        <li>
+                        {{-- <li>
                             <div class="listing_title-right"><i class="fa-solid fa-hotel"></i>Name </div>
                             <div class="results">{{$apartment->name}}</div>
-                        </li>
+                        </li> --}}
                         {{-- Apartment - description --}}
                         <li>
-                            <div class="listing_title-right"><i class="fa-solid fa-pen"></i>Description</div>
-                            <div class="results"> {{Str::limit($apartment->description, 250)}}</div>
+                            {{-- <div class="listing_title-right"><i class="fa-solid fa-pen"></i>Description</div> --}}
+                            <div class="results description"> {{Str::limit($apartment->description, 600)}}</div>
                         </li>
+
+                        <hr>
     
                         {{-- Apartment - address --}}
-                        <li>
+                        <li class="address">
                             <div class="listing_title-right"><i class="fa-solid fa-location-dot"></i>Address</div>
                             <div class="results">{{$apartment->address}}</div>
                         </li>
+
+                        
                     </ul>
                 </div>
                 
                 <div class="listing-container">
-                    <div class="listing_title">Property and Rooms</div>
-                    <ul>
+                    <div class="listing_title prop">Rooms</div>
+                    <ul class="properties">
                         {{-- Apartment - sqm --}}
                         <li class="results-container">
                             <div class="listing_title-right"><i class="fa-solid fa-arrows-left-right"></i>Square meters</div>

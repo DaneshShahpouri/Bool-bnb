@@ -253,11 +253,12 @@ ul {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-    }
 
-    .name {
         padding-top: 20px;
         padding-bottom: 10px;
+    }
+
+    .name { 
         margin: 0;
 
         font-size: 1.8em;
@@ -290,7 +291,7 @@ ul {
         padding: 8px 0;
 
         // font-weight: bold;
-        font-size: 2em;
+        font-size: 1.6em;
     }
 
     .info-container-left {
@@ -326,7 +327,6 @@ ul {
         gap: 20px;
 
         margin-bottom: 0px;
-        padding-left: 36px;
 
         line-height: 0.85em;
     }
@@ -342,6 +342,9 @@ ul {
     }
 
     .right-inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
         padding-left: 10px;
 
         width: 40%;
@@ -351,7 +354,11 @@ ul {
     }
 
     .listing-container {
-        padding: 20px 10px;
+        padding: 0 10px;
+    }
+
+    .basics{
+        padding-bottom: 10px;
     }
 
     .listing_title-right {
@@ -366,10 +373,24 @@ ul {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        padding-bottom: 8px;
     }
 
-    .results {
-        padding-right: 180px;
+    .description{
+        padding-bottom: 20px;
+    }
+
+    .address{
+        padding-top: 20px;
+    }
+
+    .prop{
+        border-top: 1px solid #c7c9c9;
+    }
+
+    .properties{
+        width: 200px;
     }
 
     li {
@@ -439,12 +460,27 @@ ul {
         }
 
         .listing_title-left{
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            text-align: center;
+        }
+
+        .is-visible{
+            padding-bottom: 30px;
+            border-bottom: 1px solid #c7c9c9;
+
             text-align: center;
         }
 
         .amenities-container{
-            padding-left: 50%;
-            transform: translate-x(-50%);
+            flex-direction: column;
+
+           padding-bottom: 40px;
+           padding-left: 30px;
+
+           border-bottom: 1px solid #c7c9c9;
+
         }
 
         .right-inner{
@@ -466,6 +502,12 @@ ul {
             padding-bottom: 12px;
             
             text-align: center;
+        }
+
+        .properties{
+            margin: 0 auto;
+
+            width: 250px;
         }
     }
 }
