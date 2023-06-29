@@ -38,6 +38,7 @@
             <h3 class="mb-3">Last Apartments <i class="fa-solid fa-building"></i></h3>
             <div class="card-wrapper">
                 <a class="btn btn-outline-primary _add-apartment-button d-flex flex-column" href="{{route('admin.apartments.create')}}"><i class="fa-solid fa-plus"></i></a>
+                @if (count($apartments)>0)
                 @for ($i=0; $i<3; $i++) 
                 <a  class="card" href="{{route ('admin.apartments.show' , $apartments[$i]->slug)}}">
                         <div class="img-wrapper">
@@ -54,6 +55,7 @@
                         
                 </a>   
                 @endfor
+                @endif
             </div>
         </div>
     </main>
