@@ -81,7 +81,6 @@
     }
 
     @media (max-width: 400px) {
-
         #edit-suggest,
         #create-suggest {
             width: 300px;
@@ -185,7 +184,8 @@ ul {
         box-shadow: 0px 6px 20px rgba($color: #000000, $alpha: 0.2);
 
         a {
-            i {}
+            i {
+            }
 
             &:hover {
                 background-color: #ff5a5f;
@@ -378,7 +378,6 @@ ul {
     }
 
     @media (max-width: 1440px) {
-
         ._container {
             flex-direction: column;
         }
@@ -399,7 +398,6 @@ ul {
     }
 
     @media (max-width: 920px) {
-
         .img_container {
             width: 100%;
         }
@@ -548,7 +546,6 @@ ul {
 .sponsorship-container #submit-button {
     background-color: rgb(121, 199, 121);
     color: white;
-
 }
 
 .sponsorship-container #submit-button:hover {
@@ -689,7 +686,6 @@ ul {
 // INDEX APPARTAMENTI
 
 #apartment_index {
-
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
@@ -715,8 +711,6 @@ ul {
 
 #apartment_create {
     ._services {
-        border: 2px solid red;
-
         ._icon {
             height: 20px;
             width: 20px;
@@ -750,7 +744,6 @@ ul {
 
 #apartment_edit {
     #edit-form {
-
         ._services {
             ._icon {
                 height: 20px;
@@ -770,7 +763,6 @@ ul {
             .form-check {
                 padding-left: 0;
                 width: calc((100% / 2) - 2em);
-
 
                 label {
                     scale: 1.6;
@@ -960,7 +952,7 @@ ul {
         margin: auto;
 
         ._main {
-            width: calc(70% - .5em);
+            width: calc(70% - 0.5em);
             padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -978,7 +970,7 @@ ul {
         }
 
         ._user {
-            width: calc(30% - .5em);
+            width: calc(30% - 0.5em);
             padding: 0.5em;
             border-radius: 20px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -1138,15 +1130,11 @@ ul {
     }
 
     @media (max-width: 650px) {
-
-
         ._apartments {
-
-
             .card-wrapper {
                 display: flex;
                 flex-flow: row wrap;
-                gap: .5em;
+                gap: 0.5em;
 
                 ._add-apartment-button {
                     width: 100%;
@@ -1157,10 +1145,9 @@ ul {
                 }
 
                 .card {
-                    width: calc((100% / 2) - .5em);
+                    width: calc((100% / 2) - 0.5em);
 
                     .img-wrapper {
-
                         width: 100%;
                         height: 120px;
                     }
@@ -1181,15 +1168,11 @@ ul {
     }
 
     @media (max-width: 400px) {
-
-
         ._apartments {
-
-
             .card-wrapper {
                 display: flex;
                 flex-flow: row wrap;
-                gap: .5em;
+                gap: 0.5em;
 
                 ._add-apartment-button {
                     width: 100%;
@@ -1203,7 +1186,6 @@ ul {
                     width: 100%;
 
                     .img-wrapper {
-
                         width: 100%;
                         height: 100px;
                     }
