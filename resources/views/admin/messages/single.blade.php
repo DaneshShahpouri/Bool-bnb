@@ -27,7 +27,7 @@
             @endforeach
         @else
         <div class=" my-3 _alert">
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-light" role="alert">
                 No received messages for this apartment
             </div>
         </div>
