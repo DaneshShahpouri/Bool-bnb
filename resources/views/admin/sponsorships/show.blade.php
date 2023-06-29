@@ -68,6 +68,7 @@
                 <input type="hidden" id="nonce" name="payment_method_nonce">
 
                 <div class="text-center">
+                    <a class="btn btn-outline-danger _btn-goback me-2" href="{{route ('admin.apartments.index')}}"><i class=" py-2 fa-solid fa-arrow-right-from-bracket"></i></a>
                     <button id="submit-button" class="sponsor-apt-now my-3 btn">Sponsor this apartment</button>
                 </div>
             </form>

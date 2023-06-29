@@ -38,7 +38,58 @@
             <h3 class="mb-3">Last Apartments <i class="fa-solid fa-building"></i></h3>
             <div class="card-wrapper">
                 <a class="btn btn-outline-primary _add-apartment-button d-flex flex-column" href="{{route('admin.apartments.create')}}"><i class="fa-solid fa-plus"></i></a>
-                @if (count($apartments)>0)
+                @if (count($apartments)==3)
+                @for ($i=0; $i<3; $i++) 
+                <a  class="card" href="{{route ('admin.apartments.show' , $apartments[$i]->slug)}}">
+                        <div class="img-wrapper">
+                            <img src="{{ asset('storage/' . $apartments[$i]->cover_image) }}" alt="">
+                        </div>
+                        <div class="info-card">
+                            <h6>
+                                {{$apartments[$i]->name}}
+                            </h6>
+                            <span>
+                                {{$apartments[$i]->address}}
+                            </span>
+                        </div>
+                        
+                </a>   
+                @endfor
+                @elseif (count($apartments)==2)
+                @for ($i=0; $i<2; $i++) 
+                <a  class="card" href="{{route ('admin.apartments.show' , $apartments[$i]->slug)}}">
+                        <div class="img-wrapper">
+                            <img src="{{ asset('storage/' . $apartments[$i]->cover_image) }}" alt="">
+                        </div>
+                        <div class="info-card">
+                            <h6>
+                                {{$apartments[$i]->name}}
+                            </h6>
+                            <span>
+                                {{$apartments[$i]->address}}
+                            </span>
+                        </div>
+                        
+                </a>   
+                @endfor
+                @elseif(count($apartments)==1)
+                @for ($i=0; $i<1; $i++) 
+                <a  class="card" href="{{route ('admin.apartments.show' , $apartments[$i]->slug)}}">
+                        <div class="img-wrapper">
+                            <img src="{{ asset('storage/' . $apartments[$i]->cover_image) }}" alt="">
+                        </div>
+                        <div class="info-card">
+                            <h6>
+                                {{$apartments[$i]->name}}
+                            </h6>
+                            <span>
+                                {{$apartments[$i]->address}}
+                            </span>
+                        </div>
+                        
+                </a>   
+                @endfor
+                @elseif (count($apartments)>3)
                 @for ($i=0; $i<3; $i++) 
                 <a  class="card" href="{{route ('admin.apartments.show' , $apartments[$i]->slug)}}">
                         <div class="img-wrapper">

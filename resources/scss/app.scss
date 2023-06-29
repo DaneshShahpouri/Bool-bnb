@@ -81,6 +81,7 @@
     }
 
     @media (max-width: 400px) {
+
         #edit-suggest,
         #create-suggest {
             width: 300px;
@@ -184,8 +185,7 @@ ul {
         box-shadow: 0px 6px 20px rgba($color: #000000, $alpha: 0.2);
 
         a {
-            i {
-            }
+            i {}
 
             &:hover {
                 background-color: #ff5a5f;
@@ -259,7 +259,7 @@ ul {
         padding-bottom: 10px;
     }
 
-    .name { 
+    .name {
         margin: 0;
 
         font-size: 1.8em;
@@ -358,7 +358,7 @@ ul {
         padding: 0 10px;
     }
 
-    .basics{
+    .basics {
         padding-bottom: 10px;
     }
 
@@ -378,19 +378,19 @@ ul {
         padding-bottom: 8px;
     }
 
-    .description{
+    .description {
         padding-bottom: 20px;
     }
 
-    .address{
+    .address {
         padding-top: 20px;
     }
 
-    .prop{
+    .prop {
         border-top: 1px solid #c7c9c9;
     }
 
-    .properties{
+    .properties {
         width: 200px;
     }
 
@@ -458,27 +458,27 @@ ul {
             margin-bottom: 8px;
         }
 
-        .listing_title-left{
+        .listing_title-left {
             padding-top: 20px;
             padding-bottom: 20px;
 
             text-align: center;
         }
 
-        .is-visible{
+        .is-visible {
             padding-bottom: 30px;
             border-bottom: 1px solid #c7c9c9;
 
             text-align: center;
         }
 
-        .amenities-container{
+        .amenities-container {
             flex-direction: column;
 
-           padding-bottom: 40px;
-           padding-left: 30px;
+            padding-bottom: 40px;
+            padding-left: 30px;
 
-           border-bottom: 1px solid #c7c9c9;
+            border-bottom: 1px solid #c7c9c9;
 
         }
 
@@ -503,7 +503,7 @@ ul {
             text-align: center;
         }
 
-        .properties{
+        .properties {
             margin: 0 auto;
 
             width: 250px;
@@ -596,6 +596,16 @@ ul {
 }
 
 .sponsorship-container {
+    ._btn-goback {
+        transform: rotate(180deg);
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // height: 54px;
+        // width: 54px;
+
+    }
+
     .card {
         width: 200px;
         /* Adjust the width as needed */
@@ -728,6 +738,7 @@ ul {
 // INDEX APPARTAMENTI
 
 #apartment_index {
+
     .fa-solid,
     .fa-regular {
         color: #ff5a5f;
